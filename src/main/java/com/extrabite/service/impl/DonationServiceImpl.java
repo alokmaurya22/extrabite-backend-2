@@ -73,13 +73,6 @@ public class DonationServiceImpl implements DonationService {
     }
 
     @Override
-    public List<DonationResponse> getPublicDonations() {
-        return donationRepository.findAll().stream()
-                .map(this::convertToResponse)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<DonationResponse> getDonationsByDonor(String donorEmail) {
         User donor = userRepository.findByEmail(donorEmail)
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + donorEmail));

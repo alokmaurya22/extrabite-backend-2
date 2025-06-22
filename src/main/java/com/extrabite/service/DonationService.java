@@ -12,8 +12,6 @@ public interface DonationService {
 
     List<DonationResponse> getAllDonations();
 
-    List<DonationResponse> getPublicDonations();
-
     List<DonationResponse> getDonationsByDonor(String donorEmail);
 
     DonationResponse updateDonation(Long id, DonationRequest donationRequest, String currentUserEmail);

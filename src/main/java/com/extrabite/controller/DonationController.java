@@ -34,12 +34,6 @@ public class DonationController {
         return ResponseEntity.ok(donation);
     }
 
-    @GetMapping("/public")
-    public ResponseEntity<List<DonationResponse>> getPublicDonations() {
-        List<DonationResponse> donations = donationService.getPublicDonations();
-        return ResponseEntity.ok(donations);
-    }
-
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<List<DonationResponse>> getAllDonations() {
