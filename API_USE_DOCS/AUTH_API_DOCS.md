@@ -6,7 +6,7 @@ This document provides detailed information about the Authentication and Welcome
 
 ## Health Check
 
-### 1. Welcome Endpoint
+### 1. Welcome Endpoint.
 
 A simple endpoint to check if the backend is running.
 
