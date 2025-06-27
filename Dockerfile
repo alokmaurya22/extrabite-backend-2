@@ -1,20 +1,28 @@
-# Use official Java 17 image
-FROM eclipse-temurin:17-jdk
+# =====================
+# 🔧 Stage 1: Build app
+# =====================
+FROM eclipse-temurin:17-jdk AS build
 
-# Create app directory
 WORKDIR /app
-
-# Copy everything to image
 COPY . .
 
-#  Make mvnw executable
+# Make mvnw executable
 RUN chmod +x mvnw
 
-# Build the project, skipping tests
+# Build the .jar file
 RUN ./mvnw clean package -DskipTests
 
-# Expose port (Render expects 8080)
+# =========================
+# Stage 2: Run the app
+# =========================
+FROM eclipse-temurin:17-jdk
+
+WORKDIR /app
+
+# Copy only the built jar file from earlier stage
+COPY --from=build /app/target/extrabite-backend-0.0.1-SNAPSHOT.jar app.jar
+
 EXPOSE 8080
 
-# Run the jar
-CMD ["java", "-jar", "target/extrabyte-backend-0.0.1-SNAPSHOT.jar"]
+# Run the JAR
+ENTRYPOINT ["java", "-jar", "app.jar"]
