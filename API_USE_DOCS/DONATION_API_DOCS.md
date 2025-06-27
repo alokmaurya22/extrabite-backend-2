@@ -72,24 +72,9 @@ This endpoint allows a logged-in user to create a new donation.
   "donorName": "John Doe"
 }
 ```
-
 ---
 
-### 2. Get Public Donations
-
-This endpoint retrieves a list of all available donations for any user to see.
-
-- **URL:** `/api/donations/public`
-- **Method:** `GET`
-- **Authentication:** Not Required
-
-#### Success Response (200 OK)
-
-The response will be an array of donation objects.
-
----
-
-### 3. Get All Donations (Admin)
+### 2. Get All Donations (Admin)
 
 This endpoint retrieves a list of all donations from all users. **Restricted to Admin/Super Admin roles.**
 
@@ -103,7 +88,7 @@ The response will be an array of all donation objects in the system.
 
 ---
 
-### 4. Get a Specific Donation by ID
+### 3. Get a Specific Donation by ID
 
 This endpoint retrieves the details of a single donation using its ID.
 
@@ -113,14 +98,14 @@ This endpoint retrieves the details of a single donation using its ID.
 
 ---
 
-### 5. Get My Donations
+### 4. Get My Donations
 
 This endpoint retrieves a list of all donations made by the currently logged-in user.
 
 - **URL:** `/api/donations/my-donations`
-- **Method:** `
+- **Method:** `GET`
 
-### 6. Delete a Donation
+### 5. Delete a Donation
 
 This endpoint allows a user to delete their own donation.
 

@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -25,15 +26,19 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final BlacklistTokenRepository blacklistTokenRepository;
+    private final ApiKeyAuthFilter apiKeyAuthFilter;
 
+    @Autowired
     public SecurityConfig(UserDetailsService userDetailsService,
             PasswordEncoder passwordEncoder,
             JwtUtil jwtUtil,
-            BlacklistTokenRepository blacklistTokenRepository) {
+            BlacklistTokenRepository blacklistTokenRepository,
+            ApiKeyAuthFilter apiKeyAuthFilter) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
         this.blacklistTokenRepository = blacklistTokenRepository;
+        this.apiKeyAuthFilter = apiKeyAuthFilter;
     }
 
     @Bean
@@ -70,6 +75,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
+                .addFilterBefore(apiKeyAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
