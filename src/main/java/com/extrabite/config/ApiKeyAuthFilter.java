@@ -17,6 +17,26 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
     private String apiKey;
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+
+        // Exclude /api/welcome endpoint
+        if (path.equals("/api/welcome")) {
+            return true;
+        }
+
+        // Exclude Swagger UI endpoints
+        if (path.startsWith("/swagger-ui/") ||
+                path.startsWith("/v3/api-docs/") ||
+                path.startsWith("/swagger-resources/") ||
+                path.startsWith("/webjars/")) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String requestApiKey = request.getHeader("EXTRABITE-API-KEY");
