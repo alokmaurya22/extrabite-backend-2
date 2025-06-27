@@ -25,8 +25,9 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
             return true;
         }
 
-        // Exclude Swagger UI endpoints
-        if (path.startsWith("/swagger-ui/") ||
+        // Exclude Swagger UI and OpenAPI endpoints
+        if (path.equals("/v3/api-docs") ||
+                path.startsWith("/swagger-ui/") ||
                 path.startsWith("/v3/api-docs/") ||
                 path.startsWith("/swagger-resources/") ||
                 path.startsWith("/webjars/")) {
