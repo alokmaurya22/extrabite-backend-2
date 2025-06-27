@@ -28,6 +28,7 @@ public class EnvConfig {
         safeSet("GOOGLE_CLIENT_ID", dotenv.get("GOOGLE_CLIENT_ID"));
         safeSet("GOOGLE_CLIENT_SECRET", dotenv.get("GOOGLE_CLIENT_SECRET"));
         safeSet("SERVER_PORT", dotenv.get("SERVER_PORT"));
+        safeSet("EXTRABITE-API-KEY", dotenv.get("EXTRABITE-API-KEY"));
 
         return environment;
     }
