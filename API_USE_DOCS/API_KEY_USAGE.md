@@ -7,17 +7,18 @@ All API requests must include a valid API key in the request headers. This helps
 - Add the following header to every API request:
 
 ```
-X-API-KEY: 2b7f8e1a-4c3e-4e2a-9c1a-7d8e6f5b2c3d
+X-API-KEY: API_KEY_VALUE
 ```
+
 - FOR POSTMAN USE , ADD IN HEADER
-- KEY = {X-API-KEY} , VALUE = {2b7f8e1a-4c3e-4e2a-9c1a-7d8e6f5b2c3d}
+- KEY = {X-API-KEY} , VALUE = {API_KEY_VALUE}
 
 - Frontend developers should store this key in an environment variable and inject it into API requests.
 
 ## Example (cURL)
 
 ```
-curl -H "X-API-KEY: 2b7f8e1a-4c3e-4e2a-9c1a-7d8e6f5b2c3d" https://your-api-url.com/endpoint
+curl -H "X-API-KEY: API_KEY_VALUE" https://your-api-url.com/endpoint
 ```
 
 ## Error Response
