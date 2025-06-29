@@ -1,7 +1,3 @@
-Here’s your improved version of the README file, with **perfect formatting, corrected grammar, enhanced consistency, and better structure**, while **preserving the original content exactly** as requested:
-
----
-
 # Extrabite Backend
 
 A Spring Boot-based backend application for the ExtraBite platform, providing a comprehensive API for food donation and community sharing services.
