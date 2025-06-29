@@ -104,8 +104,8 @@ The Extrabite Backend provides comprehensive REST APIs organized into the follow
 - **[Rating API](API_USE_DOCS/8_RATING_API_DOCS.md)** - User and donation rating system
 
 ### Interactive API Documentation
-- **Swagger UI**: Visit `http://localhost:8080/swagger-ui.html` for interactive API documentation
-- **OpenAPI Specification**: Available at `http://localhost:8080/v3/api-docs`
+- **Swagger UI**: Visit `https://extrabite-backend-2.onrender.com/swagger-ui/index.html#/` for interactive API documentation
+- **OpenAPI Specification**: Available at `https://extrabite-backend-2.onrender.com/swagger-ui/index.html#/`
 
 ## 🧪 Testing
 
