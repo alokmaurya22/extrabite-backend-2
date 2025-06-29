@@ -158,3 +158,7 @@ For technical support or questions about the API:
 ---
 
 **Note**: This README provides an overview of the Extrabite Backend project. For detailed API usage, authentication, and endpoint documentation, please refer to the comprehensive documentation in the [API_USE_DOCS/](API_USE_DOCS/) directory. 
+
+## 📄 Suggestion and Query
+
+For any suggestion and query ,please contact developer (er.alokmaurya22@gmail.com).
