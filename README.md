@@ -71,7 +71,6 @@ src/main/java/com/extrabite/
 
 ### Prerequisites
 
-<<<<<<< HEAD
 - Java 17 or higher
 - Maven 3.6+
 - PostgreSQL database
@@ -81,7 +80,6 @@ src/main/java/com/extrabite/
 
 1. Copy `env.example` to `.env` in the root directory
 2. Configure the required environment variables as described in [ENV_SETUP.md](ENV_SETUP.md)
-=======
 - Java 17 or higher  
 - Maven 3.6+  
 - PostgreSQL database  
