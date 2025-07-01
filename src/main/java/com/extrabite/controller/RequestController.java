@@ -24,9 +24,11 @@ public class RequestController {
     // Any authenticated user can create a request for a donation
     @PostMapping("/create/{donationId}")
     public ResponseEntity<RequestResponseDto> createRequest(@PathVariable Long donationId,
-            Authentication authentication) {
+            @RequestBody Map<String, String> payload, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        RequestResponseDto response = requestService.createRequest(donationId, userDetails.getUsername());
+        PaymentMethod paymentMethod = PaymentMethod.valueOf(payload.get("paymentMethod").toUpperCase());
+        RequestResponseDto response = requestService.createRequest(donationId, userDetails.getUsername(),
+                paymentMethod);
         return ResponseEntity.ok(response);
     }
 
@@ -45,17 +47,6 @@ public class RequestController {
             Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         RequestResponseDto response = requestService.rejectRequest(requestId, userDetails.getUsername());
-        return ResponseEntity.ok(response);
-    }
-
-    // The user who made the request can select a payment method
-    @PostMapping("/{requestId}/select-payment")
-    public ResponseEntity<RequestResponseDto> selectPayment(@PathVariable Long requestId,
-            @RequestBody Map<String, String> payload, Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        PaymentMethod paymentMethod = PaymentMethod.valueOf(payload.get("paymentMethod").toUpperCase());
-        RequestResponseDto response = requestService.selectPaymentMethod(requestId, userDetails.getUsername(),
-                paymentMethod);
         return ResponseEntity.ok(response);
     }
 

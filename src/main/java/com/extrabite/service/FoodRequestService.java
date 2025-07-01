@@ -21,7 +21,5 @@ public interface FoodRequestService {
 
     FoodRequestResponseDto cancelRequest(Long requestId, String userEmail);
 
-    FoodRequestResponseDto selectPaymentMethod(Long requestId, String userEmail, FoodRequestSelectPaymentDto dto);
-
     FoodRequestResponseDto verifyOtpAndComplete(Long requestId, String fulfillerEmail, FoodRequestOtpVerifyDto dto);
 }

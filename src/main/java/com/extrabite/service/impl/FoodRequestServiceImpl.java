@@ -43,6 +43,7 @@ public class FoodRequestServiceImpl implements FoodRequestService {
         request.setGeolocation(dto.getGeolocation());
         request.setFoodDescription(dto.getFoodDescription());
         request.setContactNumber(dto.getContactNumber());
+        request.setPaymentMethod(dto.getPaymentMethod());
         FoodRequest saved = foodRequestRepository.save(request);
         return toDto(saved, requesterEmail);
     }
@@ -98,7 +99,8 @@ public class FoodRequestServiceImpl implements FoodRequestService {
         if (!request.getRequester().getEmail().equals(requesterEmail)) {
             throw new RuntimeException("Only the requester can accept an offer.");
         }
-        request.setStatus(FoodRequestStatus.ACCEPTED);
+        request.setStatus(FoodRequestStatus.AWAITING_PICKUP);
+        request.setPickupCode(generateOtp());
         FoodRequest saved = foodRequestRepository.save(request);
         return toDto(saved, requesterEmail);
     }
@@ -125,25 +127,6 @@ public class FoodRequestServiceImpl implements FoodRequestService {
             throw new RuntimeException("Only the requester can cancel the request.");
         }
         request.setStatus(FoodRequestStatus.CANCELLED);
-        FoodRequest saved = foodRequestRepository.save(request);
-        return toDto(saved, userEmail);
-    }
-
-    @Override
-    @Transactional
-    public FoodRequestResponseDto selectPaymentMethod(Long requestId, String userEmail,
-            FoodRequestSelectPaymentDto dto) {
-        FoodRequest request = foodRequestRepository.findById(requestId)
-                .orElseThrow(() -> new RuntimeException("Request not found: " + requestId));
-        if (request.getStatus() != FoodRequestStatus.ACCEPTED) {
-            throw new RuntimeException("Request must be accepted before selecting payment method.");
-        }
-        if (!request.getRequester().getEmail().equals(userEmail)) {
-            throw new RuntimeException("Only the requester can select payment method.");
-        }
-        request.setPaymentMethod(dto.getPaymentMethod());
-        request.setPickupCode(generateOtp());
-        request.setStatus(FoodRequestStatus.AWAITING_PICKUP);
         FoodRequest saved = foodRequestRepository.save(request);
         return toDto(saved, userEmail);
     }

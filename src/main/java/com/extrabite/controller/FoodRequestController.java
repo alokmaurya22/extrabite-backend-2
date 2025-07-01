@@ -68,15 +68,6 @@ public class FoodRequestController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/{requestId}/select-payment")
-    public ResponseEntity<FoodRequestResponseDto> selectPayment(@PathVariable Long requestId,
-            @RequestBody FoodRequestSelectPaymentDto dto, Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        FoodRequestResponseDto response = foodRequestService.selectPaymentMethod(requestId, userDetails.getUsername(),
-                dto);
-        return ResponseEntity.ok(response);
-    }
-
     @PostMapping("/{requestId}/verify-otp")
     public ResponseEntity<FoodRequestResponseDto> verifyOtp(@PathVariable Long requestId,
             @RequestBody FoodRequestOtpVerifyDto dto, Authentication authentication) {

@@ -1,77 +1,20 @@
-# ExtraBite Donation Request API Documentation
+# Requests API Documentation
 
-This document provides detailed information about the APIs for managing donation requests. All endpoints in this module require authentication.
+This API covers the flow for making and managing requests on donations. The flow is now simplified:
 
----
-
-## 1. Create a Donation Request
-
-Allows an authenticated user to request a specific donation.
-
-- **URL:** `/api/requests/create/{donationId}`
-- **Method:** `POST`
-- **Authentication:** Required
-
-#### Success Response (200 OK)
-
-Returns the newly created request object in `PENDING` status.
-
-```json
-{
-  "id": 1,
-  "donationId": 123,
-  "foodName": "Vegetable Pulao",
-  "receiverId": 45,
-  "receiverName": "Jane Receiver",
-  "donorId": 22,
-  "donorName": "John Donor",
-  "status": "PENDING",
-  "paymentMethod": null,
-  "requestDate": "2023-10-22T10:00:00",
-  "lastUpdateDate": "2023-10-22T10:00:00"
-}
-```
+- User selects payment method at the time of making the request.
+- Donor's acceptance immediately sets status to `AWAITING_PICKUP` and generates OTP for the receiver.
+- The separate "select payment" step and endpoint are removed.
 
 ---
 
-## 2. Accept a Donation Request
+## Endpoints
 
-Allows the donation's owner to accept a pending request for one of their donations.
+### 1. Create a Request for a Donation
 
-- **URL:** `/api/requests/{requestId}/accept`
-- **Method:** `POST`
-- **Authentication:** Required
-
-#### Success Response (200 OK)
-
-- If donation is **free**, status becomes `AWAITING_PICKUP` and a pickup code is generated internally.
-- If donation is **not free**, status becomes `ACCEPTED`, waiting for the receiver to select a payment method.
-
----
-
-## 3. Reject a Donation Request
-
-Allows the donation's owner to reject a pending request.
-
-- **URL:** `/api/requests/{requestId}/reject`
-- **Method:** `POST`
-- **Authentication:** Required
-
-#### Success Response (200 OK)
-
-Returns the request object with status `REJECTED`.
-
----
-
-## 4. Select Payment Method
-
-Allows the user who made the request to select a payment method for a non-free donation that has been `ACCEPTED`. This step generates the pickup code.
-
-- **URL:** `/api/requests/{requestId}/select-payment`
-- **Method:** `POST`
-- **Authentication:** Required
-
-#### Request Body
+- **POST** `/api/requests/create/{donationId}`
+- **Auth:** Required (any user)
+- **Body:**
 
 ```json
 {
@@ -79,23 +22,41 @@ Allows the user who made the request to select a payment method for a non-free d
 }
 ```
 
-_Possible values: `CASH`, `UPI`_
+- **Allowed Values:** `CASH`, `UPI`, `CARD`, `NOT_APPLICABLE`
+- **Response Example:**
 
-#### Success Response (200 OK)
-
-Returns the request object, now in `AWAITING_PICKUP` status. The receiver is expected to be shown the pickup code.
+```json
+{
+  "id": 1,
+  "donationId": 10,
+  "foodName": "Rice",
+  "receiverId": 2,
+  "receiverName": "John Doe",
+  "donorId": 1,
+  "donorName": "Alice",
+  "status": "PENDING",
+  "paymentMethod": "CASH",
+  "pickupCode": null,
+  "requestDate": "2024-06-10T12:00:00",
+  "lastUpdateDate": "2024-06-10T12:00:00"
+}
+```
 
 ---
 
-## 5. Confirm Pickup (Verify OTP)
+### 2. Accept a Request
 
-Allows the donation's owner to confirm that the donation has been picked up by verifying the `pickupCode` provided by the receiver. This completes the transaction.
+- **POST** `/api/requests/{requestId}/accept`
+- **Auth:** Required (donor)
+- **Response:** `200 OK` — Updated request (status becomes `AWAITING_PICKUP`), OTP is generated and sent to the receiver.
 
-- **URL:** `/api/requests/{requestId}/confirm-pickup`
-- **Method:** `POST`
-- **Authentication:** Required
+---
 
-#### Request Body
+### 3. Confirm Pickup (OTP)
+
+- **POST** `/api/requests/{requestId}/confirm-pickup`
+- **Auth:** Required (donor)
+- **Body:**
 
 ```json
 {
@@ -103,26 +64,50 @@ Allows the donation's owner to confirm that the donation has been picked up by v
 }
 ```
 
-#### Success Response (200 OK)
-
-Returns the request object with status `COMPLETED`. The original donation's status is also set to `CLAIMED`.
+- **Response:** `200 OK` — Updated request (status becomes `COMPLETED`)
 
 ---
 
-## 6. View My Sent Requests
+### 4. Reject a Request
 
-Gets a list of all donation requests made by the currently logged-in user.
-
-- **URL:** `/api/requests/my-sent-requests`
-- **Method:** `GET`
-- **Authentication:** Required
+- **POST** `/api/requests/{requestId}/reject`
+- **Auth:** Required (donor)
+- **Response:** `200 OK` — Updated request (status becomes `REJECTED`)
 
 ---
 
-## 7. View My Received Requests
+### 5. My Sent Requests
 
-Gets a list of all requests received for donations made by the currently logged-in user.
+- **GET** `/api/requests/my-sent-requests`
+- **Auth:** Required
+- **Response:** `200 OK` — Array of requests made by the current user
 
-- **URL:** `/api/requests/my-received-requests`
-- **Method:** `GET`
-- **Authentication:** Required
+---
+
+### 6. My Received Requests
+
+- **GET** `/api/requests/my-received-requests`
+- **Auth:** Required
+- **Response:** `200 OK` — Array of requests received for the current user's donations
+
+---
+
+## Request Status Values
+
+- `PENDING`: Request is pending donor's action
+- `AWAITING_PICKUP`: Donor accepted, OTP generated, waiting for handover
+- `COMPLETED`: Request is fulfilled
+- `REJECTED`: Request was rejected
+
+---
+
+## Notes
+
+- **paymentMethod**: Must be selected at the time of request creation.
+- The select-payment step is removed; the process is now simpler and faster.
+- When the donor accepts, the status becomes `AWAITING_PICKUP` and OTP is generated for the receiver.
+- All other fields and flows remain the same.
+
+---
+
+For authentication and error handling, refer to the main API usage documentation.

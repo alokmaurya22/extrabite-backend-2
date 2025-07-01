@@ -25,7 +25,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     @Transactional
-    public RequestResponseDto createRequest(Long donationId, String receiverEmail) {
+    public RequestResponseDto createRequest(Long donationId, String receiverEmail, PaymentMethod paymentMethod) {
         Donation donation = findDonation(donationId);
         User receiver = findUser(receiverEmail);
 
@@ -42,6 +42,7 @@ public class RequestServiceImpl implements RequestService {
         newRequest.setReceiver(receiver);
         newRequest.setDonor(donation.getDonor());
         newRequest.setStatus(RequestStatus.PENDING);
+        newRequest.setPaymentMethod(paymentMethod);
 
         DonationRequest savedRequest = requestRepository.save(newRequest);
         return convertToDto(savedRequest, receiver);
@@ -60,14 +61,8 @@ public class RequestServiceImpl implements RequestService {
             throw new RuntimeException("This request is not in PENDING state.");
         }
 
-        request.setStatus(RequestStatus.ACCEPTED);
-
-        // If the donation is free, generate pickup code immediately
-        if (request.getDonation().isFree()) {
-            request.setPaymentMethod(PaymentMethod.NOT_APPLICABLE);
-            request.setPickupCode(generateOtp());
-            request.setStatus(RequestStatus.AWAITING_PICKUP);
-        }
+        request.setStatus(RequestStatus.AWAITING_PICKUP);
+        request.setPickupCode(generateOtp());
 
         DonationRequest updatedRequest = requestRepository.save(request);
         return convertToDto(updatedRequest, donor);
@@ -89,30 +84,6 @@ public class RequestServiceImpl implements RequestService {
         request.setStatus(RequestStatus.REJECTED);
         DonationRequest updatedRequest = requestRepository.save(request);
         return convertToDto(updatedRequest, donor);
-    }
-
-    @Override
-    @Transactional
-    public RequestResponseDto selectPaymentMethod(Long requestId, String receiverEmail, PaymentMethod paymentMethod) {
-        DonationRequest request = findRequest(requestId);
-        User receiver = findUser(receiverEmail);
-
-        if (!request.getReceiver().equals(receiver)) {
-            throw new RuntimeException("You are not authorized to update this request.");
-        }
-        if (request.getStatus() != RequestStatus.ACCEPTED) {
-            throw new RuntimeException("This request must be in ACCEPTED state to select payment.");
-        }
-        if (request.getDonation().isFree()) {
-            throw new RuntimeException("Cannot select a payment method for a free donation.");
-        }
-
-        request.setPaymentMethod(paymentMethod);
-        request.setPickupCode(generateOtp());
-        request.setStatus(RequestStatus.AWAITING_PICKUP);
-
-        DonationRequest updatedRequest = requestRepository.save(request);
-        return convertToDto(updatedRequest, receiver);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.extrabite.dto;
 
 import lombok.Data;
 import java.time.LocalDateTime;
+import com.extrabite.entity.PaymentMethod;
 
 @Data
 public class FoodRequestCreateDto {
@@ -16,4 +17,5 @@ public class FoodRequestCreateDto {
     private String geolocation;
     private String foodDescription;
     private String contactNumber;
+    private PaymentMethod paymentMethod;
 }
