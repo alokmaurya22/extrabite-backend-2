@@ -149,6 +149,16 @@ public class FoodRequestServiceImpl implements FoodRequestService {
         return toDto(saved, fulfillerEmail);
     }
 
+    @Override
+    public String getPickupCodeForRequester(Long requestId, String requesterEmail) {
+        FoodRequest request = foodRequestRepository.findById(requestId)
+                .orElseThrow(() -> new RuntimeException("Request not found: " + requestId));
+        if (!request.getRequester().getEmail().equals(requesterEmail)) {
+            throw new RuntimeException("You are not authorized to view this pickup code.");
+        }
+        return request.getPickupCode();
+    }
+
     private String generateOtp() {
         SecureRandom random = new SecureRandom();
         int num = random.nextInt(1000000);
@@ -180,10 +190,9 @@ public class FoodRequestServiceImpl implements FoodRequestService {
             dto.setFulfillerId(request.getFulfiller().getId());
             dto.setFulfillerName(request.getFulfiller().getFullName());
         }
-        // Only show pickupCode to requester or fulfiller
+        // Only show pickupCode to requester (receiver)
         if (currentUserEmail != null &&
-                (request.getRequester() != null && currentUserEmail.equals(request.getRequester().getEmail()) ||
-                        request.getFulfiller() != null && currentUserEmail.equals(request.getFulfiller().getEmail()))) {
+                request.getRequester() != null && currentUserEmail.equals(request.getRequester().getEmail())) {
             dto.setPickupCode(request.getPickupCode());
         } else {
             dto.setPickupCode(null);

@@ -129,6 +129,15 @@ public class RequestServiceImpl implements RequestService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public String getPickupCodeForReceiver(Long requestId, String receiverEmail) {
+        DonationRequest request = findRequest(requestId);
+        if (!request.getReceiver().getEmail().equals(receiverEmail)) {
+            throw new RuntimeException("You are not authorized to view this pickup code.");
+        }
+        return request.getPickupCode();
+    }
+
     private Donation findDonation(Long donationId) {
         return donationRepository.findById(donationId)
                 .orElseThrow(() -> new RuntimeException("Donation not found with id: " + donationId));
@@ -164,10 +173,11 @@ public class RequestServiceImpl implements RequestService {
         response.setRequestDate(request.getRequestDate());
         response.setLastUpdateDate(request.getLastUpdateDate());
 
-        // Security check: Only include OTP for the donor or receiver of this request
-        if (currentUser != null
-                && (currentUser.equals(request.getDonor()) || currentUser.equals(request.getReceiver()))) {
+        // Security check: Only include OTP for the receiver of this request
+        if (currentUser != null && currentUser.equals(request.getReceiver())) {
             response.setPickupCode(request.getPickupCode());
+        } else {
+            response.setPickupCode(null);
         }
 
         return response;

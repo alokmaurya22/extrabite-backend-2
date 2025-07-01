@@ -22,4 +22,7 @@ public interface FoodRequestService {
     FoodRequestResponseDto cancelRequest(Long requestId, String userEmail);
 
     FoodRequestResponseDto verifyOtpAndComplete(Long requestId, String fulfillerEmail, FoodRequestOtpVerifyDto dto);
+
+    // Requester action: Get the pickup code for a food request
+    String getPickupCodeForRequester(Long requestId, String requesterEmail);
 }

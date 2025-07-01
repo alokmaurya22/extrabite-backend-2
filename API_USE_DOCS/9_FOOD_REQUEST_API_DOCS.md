@@ -4,6 +4,15 @@ This API allows any user to request food or offer to fulfill food requests. Ther
 
 ---
 
+## Flow Improvements
+
+- User selects payment method at the time of making the request.
+- Fulfiller's acceptance immediately sets status to `AWAITING_PICKUP` and generates OTP for the requester.
+- The separate "select payment" step and endpoint are removed.
+- **Pickup code is only accessible to the requester via a dedicated endpoint.**
+
+---
+
 ## Endpoints
 
 ### 1. Create a Food Request
@@ -29,6 +38,7 @@ This API allows any user to request food or offer to fulfill food requests. Ther
 }
 ```
 
+- **Allowed Values:** `CASH`, `UPI`, `CARD`, `NOT_APPLICABLE`
 - **Response Example:**
 
 ```json
@@ -88,11 +98,27 @@ This API allows any user to request food or offer to fulfill food requests. Ther
 - **POST** `/api/food-requests/{requestId}/accept-offer`
 - **Auth:** Required (must be the requester)
 - **Path Param:** `requestId` — ID of the food request
-- **Response:** `200 OK` — Updated food request (status becomes `AWAITING_PICKUP`), OTP is generated and sent to the receiver.
+- **Response:** `200 OK` — Updated food request (status becomes `AWAITING_PICKUP`).
+- **Note:** The pickup code is NOT returned to the fulfiller. Only the requester can fetch it using the endpoint below.
 
 ---
 
-### 6. Verify OTP and Complete Request
+### 6. Get Pickup Code (Requester Only)
+
+- **GET** `/api/food-requests/{requestId}/pickup-code`
+- **Auth:** Required (requester)
+- **Path Param:** `requestId` — ID of the food request
+- **Response Example:**
+
+```json
+"123456"
+```
+
+- **Note:** Only the requester can access this endpoint. Fulfillers and other users will receive an authorization error.
+
+---
+
+### 7. Verify OTP and Complete Request
 
 - **POST** `/api/food-requests/{requestId}/verify-otp`
 - **Auth:** Required (fulfiller)
@@ -109,7 +135,7 @@ This API allows any user to request food or offer to fulfill food requests. Ther
 
 ---
 
-### 7. Complete a Food Request (Legacy)
+### 8. Complete a Food Request (Legacy)
 
 - **POST** `/api/food-requests/{requestId}/complete`
 - **Auth:** Required
@@ -118,7 +144,7 @@ This API allows any user to request food or offer to fulfill food requests. Ther
 
 ---
 
-### 8. Cancel a Food Request
+### 9. Cancel a Food Request
 
 - **POST** `/api/food-requests/{requestId}/cancel`
 - **Auth:** Required (must be the requester)
@@ -131,7 +157,7 @@ This API allows any user to request food or offer to fulfill food requests. Ther
 
 - `OPEN`: Request is open and visible to all
 - `OFFERED`: Someone has offered to fulfill the request
-- `AWAITING_PICKUP`: Donor accepted, OTP generated, waiting for handover
+- `AWAITING_PICKUP`: Fulfiller accepted, OTP generated, waiting for handover
 - `COMPLETED`: Request is fulfilled
 - `CANCELLED`: Request was cancelled
 - `CLOSED`: Request expired or manually closed; no more offers can be made
@@ -157,7 +183,8 @@ This API allows any user to request food or offer to fulfill food requests. Ther
 
 - Any user can create or fulfill requests—there are no role restrictions.
 - The API is designed to be simple and user-friendly.
-- When the donor accepts, the status becomes `AWAITING_PICKUP` and OTP is generated for the receiver.
+- When the fulfiller accepts, the status becomes `AWAITING_PICKUP` and OTP is generated for the requester.
+- **Pickup code is only accessible to the requester via the `/pickup-code` endpoint.**
 
 ---
 

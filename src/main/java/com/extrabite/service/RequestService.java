@@ -25,4 +25,7 @@ public interface RequestService {
 
     // Donor action: Get all requests received for the current user's donations
     List<RequestResponseDto> getMyReceivedRequests(String donorEmail);
+
+    // Receiver action: Get the pickup code for a request
+    String getPickupCodeForReceiver(Long requestId, String receiverEmail);
 }

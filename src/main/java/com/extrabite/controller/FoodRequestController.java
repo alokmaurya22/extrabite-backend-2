@@ -76,4 +76,12 @@ public class FoodRequestController {
                 dto);
         return ResponseEntity.ok(response);
     }
+
+    // Endpoint for requester to get their pickup code
+    @GetMapping("/{requestId}/pickup-code")
+    public ResponseEntity<String> getPickupCode(@PathVariable Long requestId, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String pickupCode = foodRequestService.getPickupCodeForRequester(requestId, userDetails.getUsername());
+        return ResponseEntity.ok(pickupCode);
+    }
 }

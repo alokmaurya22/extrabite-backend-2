@@ -5,6 +5,7 @@ This API covers the flow for making and managing requests on donations. The flow
 - User selects payment method at the time of making the request.
 - Donor's acceptance immediately sets status to `AWAITING_PICKUP` and generates OTP for the receiver.
 - The separate "select payment" step and endpoint are removed.
+- **Pickup code is only accessible to the receiver via a dedicated endpoint.**
 
 ---
 
@@ -48,11 +49,26 @@ This API covers the flow for making and managing requests on donations. The flow
 
 - **POST** `/api/requests/{requestId}/accept`
 - **Auth:** Required (donor)
-- **Response:** `200 OK` — Updated request (status becomes `AWAITING_PICKUP`), OTP is generated and sent to the receiver.
+- **Response:** `200 OK` — Updated request (status becomes `AWAITING_PICKUP`).
+- **Note:** The pickup code is NOT returned to the donor. Only the receiver can fetch it using the endpoint below.
 
 ---
 
-### 3. Confirm Pickup (OTP)
+### 3. Get Pickup Code (Receiver Only)
+
+- **GET** `/api/requests/{requestId}/pickup-code`
+- **Auth:** Required (receiver)
+- **Response Example:**
+
+```json
+"123456"
+```
+
+- **Note:** Only the receiver can access this endpoint. Donors and other users will receive an authorization error.
+
+---
+
+### 4. Confirm Pickup (OTP)
 
 - **POST** `/api/requests/{requestId}/confirm-pickup`
 - **Auth:** Required (donor)
@@ -68,7 +84,7 @@ This API covers the flow for making and managing requests on donations. The flow
 
 ---
 
-### 4. Reject a Request
+### 5. Reject a Request
 
 - **POST** `/api/requests/{requestId}/reject`
 - **Auth:** Required (donor)
@@ -76,7 +92,7 @@ This API covers the flow for making and managing requests on donations. The flow
 
 ---
 
-### 5. My Sent Requests
+### 6. My Sent Requests
 
 - **GET** `/api/requests/my-sent-requests`
 - **Auth:** Required
@@ -84,7 +100,7 @@ This API covers the flow for making and managing requests on donations. The flow
 
 ---
 
-### 6. My Received Requests
+### 7. My Received Requests
 
 - **GET** `/api/requests/my-received-requests`
 - **Auth:** Required
@@ -106,6 +122,7 @@ This API covers the flow for making and managing requests on donations. The flow
 - **paymentMethod**: Must be selected at the time of request creation.
 - The select-payment step is removed; the process is now simpler and faster.
 - When the donor accepts, the status becomes `AWAITING_PICKUP` and OTP is generated for the receiver.
+- **Pickup code is only accessible to the receiver via the `/pickup-code` endpoint.**
 - All other fields and flows remain the same.
 
 ---

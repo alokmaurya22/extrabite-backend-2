@@ -74,4 +74,12 @@ public class RequestController {
         List<RequestResponseDto> responses = requestService.getMyReceivedRequests(userDetails.getUsername());
         return ResponseEntity.ok(responses);
     }
+
+    // Endpoint for receiver to get their pickup code
+    @GetMapping("/{requestId}/pickup-code")
+    public ResponseEntity<String> getPickupCode(@PathVariable Long requestId, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String pickupCode = requestService.getPickupCodeForReceiver(requestId, userDetails.getUsername());
+        return ResponseEntity.ok(pickupCode);
+    }
 }
