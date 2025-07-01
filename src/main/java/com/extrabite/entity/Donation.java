@@ -28,8 +28,8 @@ public class Donation {
 
     private LocalDateTime expiryDateTime;
 
-    @Column(nullable = false)
-    private boolean isFree;
+    @Column(name = "is_free", nullable = false)
+    private boolean free;
 
     private Double price;
 

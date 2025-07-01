@@ -40,11 +40,11 @@ This endpoint allows a logged-in user to create a new donation.
 
 ```json
 {
-  "foodName": "Vegetable Pulao",
+  "foodName": "Vegetable Pulao 2",
   "description": "Freshly cooked with mixed vegetables",
   "quantity": "3 boxes",
-  "expiryDateTime": "2024-10-25T18:00:00",
-  "isFree": true,
+  "expiryDateTime": "2025-10-25T18:00:00",
+  "free": true,
   "price": 0.0,
   "location": "Jayanagar, Bangalore",
   "geolocation": "12.9293,77.5825",

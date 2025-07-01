@@ -10,7 +10,7 @@ public class DonationRequest {
     private String description;
     private String quantity;
     private LocalDateTime expiryDateTime;
-    private boolean isFree;
+    private boolean free;
     private Double price;
     private String location;
     private String geolocation;
