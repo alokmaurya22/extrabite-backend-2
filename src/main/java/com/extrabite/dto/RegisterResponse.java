@@ -27,6 +27,8 @@ public class RegisterResponse {
 
     private Role role;
 
+    private String fssaiLicenseNumber;
+
     private String message;
 
     private LocalDateTime registrationDate;
