@@ -2,6 +2,7 @@ package com.extrabite.dto;
 
 import com.extrabite.entity.PaymentMethod;
 import com.extrabite.entity.RequestStatus;
+import com.extrabite.entity.FoodType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,4 +27,8 @@ public class RequestResponseDto {
     private String pickupCode;
     private LocalDateTime requestDate;
     private LocalDateTime lastUpdateDate;
+    private FoodType foodType;
+    private Boolean refrigerationAvailable;
+    private Boolean timer;
+    private Long countdownTime;
 }

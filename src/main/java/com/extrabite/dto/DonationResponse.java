@@ -2,6 +2,7 @@ package com.extrabite.dto;
 
 import com.extrabite.entity.DeliveryType;
 import com.extrabite.entity.DonationStatus;
+import com.extrabite.entity.FoodType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -22,4 +23,8 @@ public class DonationResponse {
     private LocalDateTime createdDateTime;
     private Long donorId;
     private String donorName;
+    private FoodType foodType;
+    private Boolean refrigerationAvailable;
+    private Boolean timer;
+    private Long countdownTime;
 }

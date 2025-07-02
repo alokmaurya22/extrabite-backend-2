@@ -14,7 +14,12 @@ This endpoint retrieves a list of all donations that are currently available and
 
 #### Success Response (200 OK)
 
-The response will be an array of donation objects. The format is identical to the `DonationResponse` object.
+The response will be an array of donation objects. The format is identical to the `DonationResponse` object and includes the following additional fields:
+
+- `foodType`: `PRECOOKED` or `RAW`
+- `refrigerationAvailable`: boolean (only for PRECOOKED)
+- `timer`: boolean
+- `countdownTime`: number (seconds)
 
 ```json
 [
@@ -32,7 +37,11 @@ The response will be an array of donation objects. The format is identical to th
     "status": "AVAILABLE",
     "createdDateTime": "2023-10-21T10:00:00",
     "donorId": 123,
-    "donorName": "John Doe"
+    "donorName": "John Doe",
+    "foodType": "PRECOOKED",
+    "refrigerationAvailable": false,
+    "timer": true,
+    "countdownTime": 7200
   }
 ]
 ```
@@ -71,4 +80,4 @@ You can add any of the following parameters to the URL.
 
 #### Success Response (200 OK)
 
-The response will be an array of donation objects that match the filter criteria. The format is the same as the primary listing endpoint.
+The response will be an array of donation objects that match the filter criteria. The format is the same as the primary listing endpoint and includes the new fields described above.

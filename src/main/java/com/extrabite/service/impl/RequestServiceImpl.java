@@ -180,6 +180,10 @@ public class RequestServiceImpl implements RequestService {
         response.setPaymentMethod(request.getPaymentMethod());
         response.setRequestDate(request.getRequestDate());
         response.setLastUpdateDate(request.getLastUpdateDate());
+        response.setFoodType(request.getDonation().getFoodType());
+        response.setRefrigerationAvailable(request.getDonation().getRefrigerationAvailable());
+        response.setTimer(request.getDonation().getTimer());
+        response.setCountdownTime(request.getDonation().getCountdownTime());
 
         // Security check: Only include OTP for the receiver of this request
         if (currentUser != null && currentUser.equals(request.getReceiver())) {

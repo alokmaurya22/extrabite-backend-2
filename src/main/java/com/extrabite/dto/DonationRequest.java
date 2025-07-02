@@ -2,6 +2,7 @@ package com.extrabite.dto;
 
 import com.extrabite.entity.DeliveryType;
 import com.extrabite.entity.PaymentMethod;
+import com.extrabite.entity.FoodType;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -17,4 +18,8 @@ public class DonationRequest {
     private String geolocation;
     private DeliveryType deliveryType;
     private PaymentMethod paymentMethod;
+    private FoodType foodType;
+    private Boolean refrigerationAvailable;
+    private Boolean timer;
+    private Long countdownTime;
 }

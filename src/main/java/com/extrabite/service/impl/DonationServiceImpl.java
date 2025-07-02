@@ -48,6 +48,19 @@ public class DonationServiceImpl implements DonationService {
         donation.setStatus(DonationStatus.AVAILABLE);
         donation.setCreatedDateTime(LocalDateTime.now());
         donation.setDonor(donor);
+        donation.setFoodType(donationRequest.getFoodType());
+        donation.setRefrigerationAvailable(donationRequest.getRefrigerationAvailable());
+        if (donationRequest.getFoodType() != null && donationRequest.getFoodType().name().equals("PRECOOKED")) {
+            donation.setTimer(true);
+            if (Boolean.TRUE.equals(donationRequest.getRefrigerationAvailable())) {
+                donation.setCountdownTime(4 * 60 * 60L); // 4 hours in seconds
+            } else {
+                donation.setCountdownTime(2 * 60 * 60L); // 2 hours in seconds
+            }
+        } else if (donationRequest.getFoodType() != null && donationRequest.getFoodType().name().equals("RAW")) {
+            donation.setTimer(false);
+            donation.setCountdownTime(0L);
+        }
 
         // Increment donation count
         UserData donorData = donor.getUserData();
@@ -104,6 +117,19 @@ public class DonationServiceImpl implements DonationService {
         donation.setLocation(donationRequest.getLocation());
         donation.setGeolocation(donationRequest.getGeolocation());
         donation.setDeliveryType(donationRequest.getDeliveryType());
+        donation.setFoodType(donationRequest.getFoodType());
+        donation.setRefrigerationAvailable(donationRequest.getRefrigerationAvailable());
+        if (donationRequest.getFoodType() != null && donationRequest.getFoodType().name().equals("PRECOOKED")) {
+            donation.setTimer(true);
+            if (Boolean.TRUE.equals(donationRequest.getRefrigerationAvailable())) {
+                donation.setCountdownTime(4 * 60 * 60L); // 4 hours in seconds
+            } else {
+                donation.setCountdownTime(2 * 60 * 60L); // 2 hours in seconds
+            }
+        } else if (donationRequest.getFoodType() != null && donationRequest.getFoodType().name().equals("RAW")) {
+            donation.setTimer(false);
+            donation.setCountdownTime(0L);
+        }
 
         Donation updatedDonation = donationRepository.save(donation);
         return convertToResponse(updatedDonation);

@@ -52,4 +52,14 @@ public class Donation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "donor_id", nullable = false)
     private User donor;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private FoodType foodType;
+
+    private Boolean refrigerationAvailable;
+
+    private Boolean timer;
+
+    private Long countdownTime;
 }

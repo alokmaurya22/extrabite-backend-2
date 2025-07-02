@@ -35,6 +35,13 @@ For free donations:
 - **Note:** `paymentMethod` is not required for free donations. If omitted for a free donation, it will be set to `NOT_APPLICABLE` automatically.
 - **Response Example:**
 
+The response includes all relevant request fields, as well as the associated donation's properties:
+
+- `foodType`: `PRECOOKED` or `RAW`
+- `refrigerationAvailable`: boolean (only for PRECOOKED)
+- `timer`: boolean
+- `countdownTime`: number (seconds)
+
 ```json
 {
   "id": 1,
@@ -48,7 +55,11 @@ For free donations:
   "paymentMethod": "CASH",
   "pickupCode": null,
   "requestDate": "2024-06-10T12:00:00",
-  "lastUpdateDate": "2024-06-10T12:00:00"
+  "lastUpdateDate": "2024-06-10T12:00:00",
+  "foodType": "PRECOOKED",
+  "refrigerationAvailable": false,
+  "timer": true,
+  "countdownTime": 7200
 }
 ```
 
@@ -108,7 +119,7 @@ For free donations:
 
 - **GET** `/api/requests/my-sent-requests`
 - **Auth:** Required
-- **Response:** `200 OK` — Array of requests made by the current user
+- **Response:** `200 OK` — Array of requests made by the current user, each including the donation fields above.
 
 ---
 
@@ -116,7 +127,7 @@ For free donations:
 
 - **GET** `/api/requests/my-received-requests`
 - **Auth:** Required
-- **Response:** `200 OK` — Array of requests received for the current user's donations
+- **Response:** `200 OK` — Array of requests received for the current user's donations, each including the donation fields above.
 
 ---
 
@@ -136,6 +147,7 @@ For free donations:
 - When the donor accepts, the status becomes `AWAITING_PICKUP` and OTP is generated for the receiver.
 - **Pickup code is only accessible to the receiver via the `/pickup-code` endpoint.**
 - All other fields and flows remain the same.
+- **All request responses now include the associated donation's foodType, refrigerationAvailable, timer, and countdownTime.**
 
 ---
 
