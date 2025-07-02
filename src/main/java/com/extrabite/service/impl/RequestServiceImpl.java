@@ -1,6 +1,7 @@
 package com.extrabite.service.impl;
 
 import com.extrabite.dto.ConfirmPickupRequestDto;
+import com.extrabite.dto.PickupCodeResponseDto;
 import com.extrabite.dto.RequestResponseDto;
 import com.extrabite.entity.*;
 import com.extrabite.repository.DonationRepository;
@@ -42,7 +43,11 @@ public class RequestServiceImpl implements RequestService {
         newRequest.setReceiver(receiver);
         newRequest.setDonor(donation.getDonor());
         newRequest.setStatus(RequestStatus.PENDING);
-        newRequest.setPaymentMethod(paymentMethod);
+        if (donation.isFree()) {
+            newRequest.setPaymentMethod(PaymentMethod.NOT_APPLICABLE);
+        } else {
+            newRequest.setPaymentMethod(paymentMethod);
+        }
 
         DonationRequest savedRequest = requestRepository.save(newRequest);
         return convertToDto(savedRequest, receiver);
@@ -130,12 +135,15 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public String getPickupCodeForReceiver(Long requestId, String receiverEmail) {
+    public PickupCodeResponseDto getPickupCodeForReceiver(Long requestId, String receiverEmail) {
         DonationRequest request = findRequest(requestId);
         if (!request.getReceiver().getEmail().equals(receiverEmail)) {
             throw new RuntimeException("You are not authorized to view this pickup code.");
         }
-        return request.getPickupCode();
+        PickupCodeResponseDto dto = new PickupCodeResponseDto();
+        dto.setPickupCode(request.getPickupCode());
+        dto.setDonorContactNumber(request.getDonor().getContactNumber());
+        return dto;
     }
 
     private Donation findDonation(Long donationId) {

@@ -2,6 +2,7 @@ package com.extrabite.service;
 
 import com.extrabite.dto.ConfirmPickupRequestDto;
 import com.extrabite.dto.RequestResponseDto;
+import com.extrabite.dto.PickupCodeResponseDto;
 import com.extrabite.entity.PaymentMethod;
 
 import java.util.List;
@@ -27,5 +28,5 @@ public interface RequestService {
     List<RequestResponseDto> getMyReceivedRequests(String donorEmail);
 
     // Receiver action: Get the pickup code for a request
-    String getPickupCodeForReceiver(Long requestId, String receiverEmail);
+    PickupCodeResponseDto getPickupCodeForReceiver(Long requestId, String receiverEmail);
 }

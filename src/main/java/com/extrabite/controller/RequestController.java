@@ -2,7 +2,10 @@ package com.extrabite.controller;
 
 import com.extrabite.dto.ConfirmPickupRequestDto;
 import com.extrabite.dto.RequestResponseDto;
+import com.extrabite.dto.PickupCodeResponseDto;
 import com.extrabite.entity.PaymentMethod;
+import com.extrabite.entity.Donation;
+import com.extrabite.repository.DonationRepository;
 import com.extrabite.service.RequestService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +23,24 @@ import java.util.Map;
 public class RequestController {
 
     private final RequestService requestService;
+    private final DonationRepository donationRepository;
 
     // Any authenticated user can create a request for a donation
     @PostMapping("/create/{donationId}")
     public ResponseEntity<RequestResponseDto> createRequest(@PathVariable Long donationId,
             @RequestBody Map<String, String> payload, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        PaymentMethod paymentMethod = PaymentMethod.valueOf(payload.get("paymentMethod").toUpperCase());
+        Donation donation = donationRepository.findById(donationId)
+                .orElseThrow(() -> new RuntimeException("Donation not found with id: " + donationId));
+        PaymentMethod paymentMethod;
+        if (donation.isFree()) {
+            paymentMethod = PaymentMethod.NOT_APPLICABLE;
+        } else {
+            if (!payload.containsKey("paymentMethod")) {
+                throw new RuntimeException("paymentMethod is required for non-free donations");
+            }
+            paymentMethod = PaymentMethod.valueOf(payload.get("paymentMethod").toUpperCase());
+        }
         RequestResponseDto response = requestService.createRequest(donationId, userDetails.getUsername(),
                 paymentMethod);
         return ResponseEntity.ok(response);
@@ -77,9 +91,10 @@ public class RequestController {
 
     // Endpoint for receiver to get their pickup code
     @GetMapping("/{requestId}/pickup-code")
-    public ResponseEntity<String> getPickupCode(@PathVariable Long requestId, Authentication authentication) {
+    public ResponseEntity<PickupCodeResponseDto> getPickupCode(@PathVariable Long requestId,
+            Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String pickupCode = requestService.getPickupCodeForReceiver(requestId, userDetails.getUsername());
-        return ResponseEntity.ok(pickupCode);
+        PickupCodeResponseDto response = requestService.getPickupCodeForReceiver(requestId, userDetails.getUsername());
+        return ResponseEntity.ok(response);
     }
 }

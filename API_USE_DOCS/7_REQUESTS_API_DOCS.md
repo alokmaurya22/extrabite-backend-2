@@ -17,13 +17,22 @@ This API covers the flow for making and managing requests on donations. The flow
 - **Auth:** Required (any user)
 - **Body:**
 
+For paid donations:
+
 ```json
 {
   "paymentMethod": "CASH"
 }
 ```
 
+For free donations:
+
+```json
+{}
+```
+
 - **Allowed Values:** `CASH`, `UPI`, `CARD`, `NOT_APPLICABLE`
+- **Note:** `paymentMethod` is not required for free donations. If omitted for a free donation, it will be set to `NOT_APPLICABLE` automatically.
 - **Response Example:**
 
 ```json
@@ -61,7 +70,10 @@ This API covers the flow for making and managing requests on donations. The flow
 - **Response Example:**
 
 ```json
-"123456"
+{
+  "pickupCode": "123456",
+  "donorContactNumber": "+1234567890"
+}
 ```
 
 - **Note:** Only the receiver can access this endpoint. Donors and other users will receive an authorization error.
