@@ -6,6 +6,7 @@ import com.extrabite.entity.FoodType;
 import lombok.Data;
 import java.time.LocalDateTime;
 
+// Donation request bhejne ke liye class hai
 @Data
 public class DonationRequest {
     private String foodName;

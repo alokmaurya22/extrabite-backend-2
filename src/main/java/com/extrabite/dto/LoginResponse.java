@@ -3,6 +3,7 @@ package com.extrabite.dto;
 import com.extrabite.entity.Role;
 import lombok.*;
 
+// Login hone ke baad response bhejne ke liye class hai
 @Getter
 @Setter
 @NoArgsConstructor

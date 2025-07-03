@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
+// Blacklisted tokens ko clean karne ke liye scheduler hai
 @Component
 @RequiredArgsConstructor
 public class TokenCleanupScheduler {
@@ -17,7 +18,7 @@ public class TokenCleanupScheduler {
     @Value("${jwt.expiration}")
     private long jwtExpiration;
 
-    //  Runs every hour
+    // Runs every hour
     @Scheduled(cron = "0 0 * * * ?")
     public void cleanExpiredTokens() {
         Instant now = Instant.now();

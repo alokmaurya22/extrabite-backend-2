@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+// Super admin ke liye controller hai
 @RestController
 @RequestMapping("/api/superadmin")
 @RequiredArgsConstructor

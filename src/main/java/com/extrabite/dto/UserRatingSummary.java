@@ -2,6 +2,7 @@ package com.extrabite.dto;
 
 import lombok.Data;
 
+// User ki rating ka summary dikhane ke liye class hai
 @Data
 public class UserRatingSummary {
     private Long userId;

@@ -5,6 +5,7 @@ import com.extrabite.entity.User;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+// User ke liye specification class hai
 @Component
 public class UserSpecification {
 

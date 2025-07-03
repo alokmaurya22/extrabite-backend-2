@@ -5,6 +5,7 @@ import com.extrabite.entity.PaymentMethod;
 import lombok.Data;
 import java.time.LocalDateTime;
 
+// Food request ka response bhejne ke liye class hai
 @Data
 public class FoodRequestResponseDto {
     private Long id;

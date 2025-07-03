@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+// Donation request ke liye repository hai
 @Repository
 public interface DonationRequestRepository extends JpaRepository<DonationRequest, Long> {
     // Find all requests made by a specific receiver

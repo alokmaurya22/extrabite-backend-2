@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+// Pickup confirm karne ke liye class hai
 @Data
 public class ConfirmPickupRequestDto {
     @NotBlank

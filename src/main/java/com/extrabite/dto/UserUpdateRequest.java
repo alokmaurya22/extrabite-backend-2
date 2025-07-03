@@ -2,6 +2,7 @@ package com.extrabite.dto;
 
 import lombok.Data;
 
+// User update karne ke liye class hai
 @Data
 public class UserUpdateRequest {
     private String fullName;

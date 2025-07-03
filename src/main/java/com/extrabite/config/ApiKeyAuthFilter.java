@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+// API key authentication ke liye filter hai
 @Component
 public class ApiKeyAuthFilter extends OncePerRequestFilter {
 

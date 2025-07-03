@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+// Donation ka response bhejne ke liye class hai
 @Data
 public class DonationResponse {
     private Long id;

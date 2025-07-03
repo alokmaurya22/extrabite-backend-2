@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+// Admin related APIs ke liye controller hai
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor

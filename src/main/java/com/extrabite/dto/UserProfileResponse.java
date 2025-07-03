@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+// User ka profile response bhejne ke liye class hai
 @Data
 @Builder
 public class UserProfileResponse {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+// Rating ke liye repository hai
 @Repository
 public interface RatingRepository extends JpaRepository<Rating, Long> {
 

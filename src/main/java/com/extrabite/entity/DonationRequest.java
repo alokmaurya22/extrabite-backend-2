@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+// Donation request ki details ke liye class hai
 @Entity
 @Table(name = "donation_requests")
 @Data

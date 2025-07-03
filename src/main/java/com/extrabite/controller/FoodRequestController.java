@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+// Food request ke liye controller hai
 @RestController
 @RequestMapping("/api/food-requests")
 @RequiredArgsConstructor

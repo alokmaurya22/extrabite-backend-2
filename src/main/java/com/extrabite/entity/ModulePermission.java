@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+// User ke permissions ke liye class hai
 @Entity
 @Table(name = "module_permissions")
 @Getter

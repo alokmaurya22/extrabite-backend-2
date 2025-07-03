@@ -7,6 +7,7 @@ import jakarta.validation.constraints.*;
 @Data
 public class RatingRequest {
 
+    // Rating bhejne ke liye class hai
     @NotNull(message = "Donation request ID is required")
     private Long donationRequestId;
 

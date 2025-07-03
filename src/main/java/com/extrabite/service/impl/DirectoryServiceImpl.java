@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+// Directory se related saari service logic yaha hai
 @Service
 @RequiredArgsConstructor
 public class DirectoryServiceImpl implements DirectoryService {

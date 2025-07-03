@@ -17,33 +17,43 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 /**
- * Implementation of AuthService to handle user registration logic.
+ * This class handles authentication logic like register and login
+ * Yaha pe user register aur login ka kaam hota hai
  */
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
+    // Repository to access user data
     private final UserRepository userRepository;
-
+    // For encoding and decoding passwords
     private final PasswordEncoder passwordEncoder;
-
+    // For making and reading JWT tokens
     private final JwtUtil jwtUtil;
 
+    /**
+     * This method is for registering new user
+     */
     @Override
     @Transactional
     public RegisterResponse registerNewUser(RegisterRequest request) {
+        // Email ko clean aur lowercase bana rahe hain
         String normalizedEmail = request.getEmail().trim().toLowerCase();
 
+        // Check kar rahe hain ki email already hai ya nahi
         if (userRepository.existsByEmail(normalizedEmail)) {
             throw new RuntimeException("Email already in use");
         }
 
+        // Public registration ke liye admin ya volunteer role allowed nahi hai
         if (request.getRole() == Role.ADMIN || request.getRole() == Role.VOLUNTEER) {
             throw new RuntimeException("Invalid role for public registration.");
         }
 
+        // Password ko encode kar rahe hain
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
+        // Naya user bana rahe hain
         User user = User.builder()
                 .fullName(request.getFullName())
                 .email(normalizedEmail)
@@ -56,12 +66,13 @@ public class AuthServiceImpl implements AuthService {
                 .fssaiLicenseNumber(request.getFssaiLicenseNumber())
                 .build();
 
+        // User ko database me save kar rahe hain
         User savedUser = userRepository.save(user);
 
-        // Generate token using JwtUtil
+        // Token bana rahe hain naya user ke liye
         String token = jwtUtil.generateToken(savedUser);
 
-        // Return token with registration response
+        // Response bana ke return kar rahe hain
         return RegisterResponse.builder()
                 .id(savedUser.getId())
                 .fullName(savedUser.getFullName())
@@ -75,33 +86,32 @@ public class AuthServiceImpl implements AuthService {
                 .build();
     }
 
+    /**
+     * This method is for user login
+     */
     @Override
     public LoginResponse login(LoginRequest request) {
-        // Normalize email
+        // Email ko clean aur lowercase bana rahe hain
         String email = request.getEmail().trim().toLowerCase();
 
-        // Find user by email
+        // User ko email se dhoond rahe hain
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
 
-        // Check if account is active
+        // Check kar rahe hain ki account active hai ya nahi
         if (!Boolean.TRUE.equals(user.getProfileActive())) {
             throw new RuntimeException("Your account is deactivated.");
         }
 
-        // Check if password matches
+        // Password match kar rahe hain
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid email or password");
         }
 
-        // If valid, generate JWT token
+        // Sab sahi hai toh token bana rahe hain
         String token = jwtUtil.generateToken(user);
 
-        // System.out.println("Looking up email: " + request.getEmail());
-        // System.out.println("User in DB: " + user.getEmail());
-        // System.out.println("Password matches: " +
-        // passwordEncoder.matches(request.getPassword(), user.getPassword()));
-        // Return token and user info in response
+        // Response bana ke return kar rahe hain
         return LoginResponse.builder()
                 .accessToken(token)
                 .userId(user.getId())

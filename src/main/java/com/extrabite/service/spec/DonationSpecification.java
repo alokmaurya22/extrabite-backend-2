@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+// Donation ke liye specification class hai
 @Component
 public class DonationSpecification {
 

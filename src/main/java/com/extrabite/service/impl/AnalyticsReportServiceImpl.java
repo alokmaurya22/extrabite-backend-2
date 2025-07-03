@@ -6,6 +6,8 @@ import java.util.*;
 
 @Service
 public class AnalyticsReportServiceImpl implements AnalyticsReportService {
+    // Analytics report se related saari service logic yaha hai
+
     @Override
     public Map<String, Object> getAdminSummary() {
         Map<String, Object> summary = new HashMap<>();

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+// Rating ka response bhejne ke liye class hai
 @Data
 public class RatingResponse {
     private Long id;

@@ -13,27 +13,34 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// This controller is for donation related APIs
+// Yaha pe donation create, update, delete, dekhne ka kaam hota hai
 @RestController
 @RequestMapping("/api/donations")
 public class DonationController {
 
+    // Service for donation logic
     @Autowired
     private DonationService donationService;
 
+    // API to create a new donation
     @PostMapping
     public ResponseEntity<DonationResponse> createDonation(@RequestBody DonationRequest donationRequest,
             Authentication authentication) {
+        // User ka username nikal rahe hain
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         DonationResponse createdDonation = donationService.createDonation(donationRequest, userDetails.getUsername());
         return new ResponseEntity<>(createdDonation, HttpStatus.CREATED);
     }
 
+    // API to get donation by id
     @GetMapping("/{id}")
     public ResponseEntity<DonationResponse> getDonationById(@PathVariable Long id) {
         DonationResponse donation = donationService.getDonationById(id);
         return ResponseEntity.ok(donation);
     }
 
+    // API to get all donations (admin/superadmin only)
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<List<DonationResponse>> getAllDonations() {
@@ -41,6 +48,7 @@ public class DonationController {
         return ResponseEntity.ok(donations);
     }
 
+    // API to get donations of logged-in user
     @GetMapping("/my-donations")
     public ResponseEntity<List<DonationResponse>> getMyDonations(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -48,6 +56,7 @@ public class DonationController {
         return ResponseEntity.ok(donations);
     }
 
+    // API to update a donation
     @PutMapping("/update_donation/{id}")
     public ResponseEntity<DonationResponse> updateDonation(@PathVariable Long id,
             @RequestBody DonationRequest donationRequest, Authentication authentication) {
@@ -57,6 +66,7 @@ public class DonationController {
         return ResponseEntity.ok(updatedDonation);
     }
 
+    // API to delete a donation
     @DeleteMapping("/delete-donation/{id}")
     public ResponseEntity<Void> deleteDonation(@PathVariable Long id, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+// Rating ke liye controller hai
 @RestController
 @RequestMapping("/api/ratings")
 @RequiredArgsConstructor

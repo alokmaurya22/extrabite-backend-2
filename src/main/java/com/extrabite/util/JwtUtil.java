@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+// JWT token banane aur verify karne ke liye class hai
 @Component
 public class JwtUtil {
 
@@ -99,6 +100,7 @@ public class JwtUtil {
             return false;
         }
     }
+
     public String extractToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
+// Food request ki details ke liye class hai
 @Entity
 @Table(name = "food_requests")
 @Data

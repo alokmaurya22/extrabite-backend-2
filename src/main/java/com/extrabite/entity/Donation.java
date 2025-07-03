@@ -6,6 +6,8 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+// This class is for donation data
+// Yaha pe donation ki saari info store hoti hai
 @Entity
 @Table(name = "donations")
 @Getter

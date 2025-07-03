@@ -14,6 +14,7 @@ import lombok.*;
 @Builder
 public class RegisterRequest {
 
+    // Register karne ke liye user ki details ki class hai
     @NotBlank(message = "Full name is required")
     private String fullName;
 

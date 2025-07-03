@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+// Rating ki details ke liye class hai
 @Entity
 @Table(name = "ratings")
 @Getter

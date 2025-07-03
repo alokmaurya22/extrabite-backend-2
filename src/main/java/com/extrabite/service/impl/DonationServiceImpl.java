@@ -18,23 +18,30 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// This class handles donation logic
+// Yaha pe donation create, update, delete, fetch ka kaam hota hai
 @Service
 public class DonationServiceImpl implements DonationService {
 
+    // Repository for donation data
     @Autowired
     private DonationRepository donationRepository;
 
+    // Repository for user data
     @Autowired
     private UserRepository userRepository;
 
+    // Repository for extra user data
     @Autowired
     private UserDataRepository userDataRepository;
 
+    // Method to create a new donation
     @Override
     public DonationResponse createDonation(DonationRequest donationRequest, String donorEmail) {
+        // Donor ko email se dhoond rahe hain
         User donor = userRepository.findByEmail(donorEmail)
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + donorEmail));
-
+        // Naya donation object bana rahe hain
         Donation donation = new Donation();
         donation.setFoodName(donationRequest.getFoodName());
         donation.setDescription(donationRequest.getDescription());
@@ -50,6 +57,7 @@ public class DonationServiceImpl implements DonationService {
         donation.setDonor(donor);
         donation.setFoodType(donationRequest.getFoodType());
         donation.setRefrigerationAvailable(donationRequest.getRefrigerationAvailable());
+        // Food type ke hisaab se timer set kar rahe hain
         if (donationRequest.getFoodType() != null && donationRequest.getFoodType().name().equals("PRECOOKED")) {
             donation.setTimer(true);
             if (Boolean.TRUE.equals(donationRequest.getRefrigerationAvailable())) {
@@ -61,16 +69,16 @@ public class DonationServiceImpl implements DonationService {
             donation.setTimer(false);
             donation.setCountdownTime(0L);
         }
-
-        // Increment donation count
+        // Donation count badha rahe hain
         UserData donorData = donor.getUserData();
         donorData.setDonationCount(donorData.getDonationCount() + 1);
         userDataRepository.save(donorData);
-
+        // Donation ko database me save kar rahe hain
         Donation savedDonation = donationRepository.save(donation);
         return convertToResponse(savedDonation);
     }
 
+    // Method to get donation by id
     @Override
     public DonationResponse getDonationById(Long id) {
         Donation donation = donationRepository.findById(id)
@@ -78,6 +86,7 @@ public class DonationServiceImpl implements DonationService {
         return convertToResponse(donation);
     }
 
+    // Method to get all donations
     @Override
     public List<DonationResponse> getAllDonations() {
         return donationRepository.findAll().stream()
@@ -85,6 +94,7 @@ public class DonationServiceImpl implements DonationService {
                 .collect(Collectors.toList());
     }
 
+    // Method to get all donations by a donor
     @Override
     public List<DonationResponse> getDonationsByDonor(String donorEmail) {
         User donor = userRepository.findByEmail(donorEmail)
@@ -95,19 +105,19 @@ public class DonationServiceImpl implements DonationService {
                 .collect(Collectors.toList());
     }
 
+    // Method to update a donation
     @Override
     public DonationResponse updateDonation(Long id, DonationRequest donationRequest, String currentUserEmail) {
         Donation donation = donationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Donation not found with id: " + id));
-
         User currentUser = userRepository.findByEmail(currentUserEmail)
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + currentUserEmail));
-
+        // Sirf donor ya admin hi update kar sakta hai
         if (!donation.getDonor().equals(currentUser) && !currentUser.getRole().equals(Role.ADMIN)
                 && !currentUser.getRole().equals(Role.SUPER_ADMIN)) {
             throw new RuntimeException("You are not authorized to update this donation");
         }
-
+        // Donation ki details update kar rahe hain
         donation.setFoodName(donationRequest.getFoodName());
         donation.setDescription(donationRequest.getDescription());
         donation.setQuantity(donationRequest.getQuantity());
@@ -130,35 +140,34 @@ public class DonationServiceImpl implements DonationService {
             donation.setTimer(false);
             donation.setCountdownTime(0L);
         }
-
         Donation updatedDonation = donationRepository.save(donation);
         return convertToResponse(updatedDonation);
     }
 
+    // Method to delete a donation
     @Override
     public void deleteDonation(Long id, String currentUserEmail) {
         Donation donation = donationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Donation not found with id: " + id));
-
         User currentUser = userRepository.findByEmail(currentUserEmail)
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + currentUserEmail));
-
+        // Sirf donor ya admin hi delete kar sakta hai
         if (!donation.getDonor().equals(currentUser) && !currentUser.getRole().equals(Role.ADMIN)
                 && !currentUser.getRole().equals(Role.SUPER_ADMIN)) {
             throw new RuntimeException("You are not authorized to delete this donation");
         }
-
-        // Decrement donation count
+        // Donation count kam kar rahe hain
         UserData donorData = donation.getDonor().getUserData();
         long currentCount = donorData.getDonationCount();
         if (currentCount > 0) {
             donorData.setDonationCount(currentCount - 1);
             userDataRepository.save(donorData);
         }
-
+        // Donation ko database se hata rahe hain
         donationRepository.deleteById(id);
     }
 
+    // Method to convert Donation entity to response object
     private DonationResponse convertToResponse(Donation donation) {
         DonationResponse response = new DonationResponse();
         response.setId(donation.getId());

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+// Analytics report ke liye controller hai
 @RestController
 @RequestMapping("/api/analytics")
 @RequiredArgsConstructor

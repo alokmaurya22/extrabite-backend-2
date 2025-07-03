@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+// Directory ke liye controller hai
 @RestController
 @RequestMapping("/api/directory")
 @RequiredArgsConstructor

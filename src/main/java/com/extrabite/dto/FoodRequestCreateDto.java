@@ -4,6 +4,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import com.extrabite.entity.PaymentMethod;
 
+// Food request create karne ke liye class hai
 @Data
 public class FoodRequestCreateDto {
     private String foodType;

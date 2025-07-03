@@ -3,6 +3,7 @@ package com.extrabite.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+// User ka extra data store hota hai yaha
 @Entity
 @Table(name = "user_data")
 @Data

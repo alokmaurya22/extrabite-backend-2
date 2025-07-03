@@ -1,5 +1,6 @@
 package com.extrabite.entity;
 
+// Request ka status batata hai
 public enum RequestStatus {
     PENDING, // Receiver has made the request, waiting for Donor's response
     ACCEPTED, // Donor has accepted the request

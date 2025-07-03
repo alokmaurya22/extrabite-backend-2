@@ -10,11 +10,12 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+// Custom authentication ke liye provider hai
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 
     public CustomAuthenticationProvider(UserDetailsService userDetailsService,
-                                        PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder) {
         this.setUserDetailsService(userDetailsService);
         this.setPasswordEncoder(passwordEncoder);
     }
