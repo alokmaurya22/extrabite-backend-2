@@ -10,7 +10,7 @@ This endpoint retrieves a list of all donations that are currently available and
 
 - **URL:** `/api/browse/donations`
 - **Method:** `GET`
-- **Authentication:** Not Required
+- **Authentication:** Not Required for login
 
 #### Success Response (200 OK)
 
