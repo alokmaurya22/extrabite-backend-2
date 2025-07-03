@@ -41,6 +41,8 @@ The response includes all relevant request fields, as well as the associated don
 - `refrigerationAvailable`: boolean (only for PRECOOKED)
 - `timer`: boolean
 - `countdownTime`: number (seconds)
+- `free`: boolean (whether the donation is free)
+- `price`: number (price of the donation, if not free)
 
 ```json
 {
@@ -59,7 +61,9 @@ The response includes all relevant request fields, as well as the associated don
   "foodType": "PRECOOKED",
   "refrigerationAvailable": false,
   "timer": true,
-  "countdownTime": 7200
+  "countdownTime": 7200,
+  "free": false,
+  "price": 100.0
 }
 ```
 

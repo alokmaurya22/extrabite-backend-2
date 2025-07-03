@@ -31,4 +31,6 @@ public class RequestResponseDto {
     private Boolean refrigerationAvailable;
     private Boolean timer;
     private Long countdownTime;
+    private Boolean free;
+    private Double price;
 }

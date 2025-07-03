@@ -184,6 +184,8 @@ public class RequestServiceImpl implements RequestService {
         response.setRefrigerationAvailable(request.getDonation().getRefrigerationAvailable());
         response.setTimer(request.getDonation().getTimer());
         response.setCountdownTime(request.getDonation().getCountdownTime());
+        response.setFree(request.getDonation().isFree());
+        response.setPrice(request.getDonation().getPrice());
 
         // Security check: Only include OTP for the receiver of this request
         if (currentUser != null && currentUser.equals(request.getReceiver())) {
