@@ -81,3 +81,28 @@ You can add any of the following parameters to the URL.
 #### Success Response (200 OK)
 
 The response will be an array of donation objects that match the filter criteria. The format is the same as the primary listing endpoint and includes the new fields described above.
+
+```json
+[
+  {
+    "id": 1,
+    "foodName": "Vegetable Pulao",
+    "description": "Freshly cooked with mixed vegetables",
+    "quantity": "3 boxes",
+    "expiryDateTime": "2024-10-25T18:00:00",
+    "isFree": true,
+    "price": 0.0,
+    "location": "Jayanagar, Bangalore",
+    "geolocation": "12.9293,77.5825",
+    "deliveryType": "SELF_PICKUP",
+    "status": "AVAILABLE",
+    "createdDateTime": "2023-10-21T10:00:00",
+    "donorId": 123,
+    "donorName": "John Doe",
+    "foodType": "PRECOOKED",
+    "refrigerationAvailable": false,
+    "timer": true,
+    "countdownTime": 7200
+  }
+]
+```

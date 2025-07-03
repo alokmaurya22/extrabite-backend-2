@@ -25,7 +25,7 @@ public class DonationSpecification {
     }
 
     public Specification<Donation> isFree(Boolean isFree) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("isFree"), isFree);
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("free"), isFree);
     }
 
     public Specification<Donation> expiresAfter(LocalDateTime dateTime) {
