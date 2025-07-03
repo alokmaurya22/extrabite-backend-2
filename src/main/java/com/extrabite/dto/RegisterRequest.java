@@ -29,6 +29,9 @@ public class RegisterRequest {
 
     private String location;
 
+    // Optional FSSAI License Number for donors
+    private String fssaiLicenseNumber;
+
     @NotNull(message = "Role is required")
     private Role role; // Only Donor or Receiver allowed through registration
 }

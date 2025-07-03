@@ -40,6 +40,9 @@ public class User {
     // Location can be pin code, city, etc.
     private String location;
 
+    // FSSAI license number
+    private String fssaiLicenseNumber;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;

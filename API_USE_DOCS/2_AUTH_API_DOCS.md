@@ -39,14 +39,15 @@ This endpoint allows a new user to register for an account.
 
 #### Request Body
 
-| Field           | Type     | Description                                   | Required |
-| --------------- | -------- | --------------------------------------------- | -------- |
-| `fullName`      | `String` | The full name of the user.                    | Yes      |
-| `email`         | `String` | A valid and unique email address.             | Yes      |
-| `password`      | `String` | Password, must be at least 6 characters.      | Yes      |
-| `contactNumber` | `String` | User's contact phone number.                  | No       |
-| `location`      | `String` | User's city or address.                       | No       |
-| `role`          | `String` | The role of the user (`DONOR` or `RECEIVER`). | Yes      |
+| Field                | Type     | Description                                   | Required |
+| -------------------- | -------- | --------------------------------------------- | -------- |
+| `fullName`           | `String` | The full name of the user.                    | Yes      |
+| `email`              | `String` | A valid and unique email address.             | Yes      |
+| `password`           | `String` | Password, must be at least 6 characters.      | Yes      |
+| `contactNumber`      | `String` | User's contact phone number.                  | No       |
+| `location`           | `String` | User's city or address.                       | No       |
+| `role`               | `String` | The role of the user (`DONOR` or `RECEIVER`). | Yes      |
+| `fssaiLicenseNumber` | `String` | FSSAI Lic. No. (optional, for donors only)    | No       |
 
 #### Success Response (200 OK)
 
@@ -58,6 +59,7 @@ This endpoint allows a new user to register for an account.
   "contactNumber": "9876543210",
   "location": "Bangalore",
   "role": "DONOR",
+  "fssaiLicenseNumber": "12345678901234",
   "message": "User registered successfully",
   "registrationDate": "2023-10-21T15:00:00",
   "profileActive": true,

@@ -53,6 +53,7 @@ public class AuthServiceImpl implements AuthService {
                 .role(request.getRole())
                 .registrationDate(LocalDateTime.now())
                 .profileActive(true)
+                .fssaiLicenseNumber(request.getFssaiLicenseNumber())
                 .build();
 
         User savedUser = userRepository.save(user);
@@ -68,6 +69,7 @@ public class AuthServiceImpl implements AuthService {
                 .contactNumber(savedUser.getContactNumber())
                 .location(savedUser.getLocation())
                 .role(savedUser.getRole())
+                .fssaiLicenseNumber(savedUser.getFssaiLicenseNumber())
                 .accessToken(token)
                 .message("Registration successful and logged in")
                 .build();
@@ -95,9 +97,10 @@ public class AuthServiceImpl implements AuthService {
         // If valid, generate JWT token
         String token = jwtUtil.generateToken(user);
 
-        //  System.out.println("Looking up email: " + request.getEmail());
-        //  System.out.println("User in DB: " + user.getEmail());
-        //  System.out.println("Password matches: " + passwordEncoder.matches(request.getPassword(), user.getPassword()));
+        // System.out.println("Looking up email: " + request.getEmail());
+        // System.out.println("User in DB: " + user.getEmail());
+        // System.out.println("Password matches: " +
+        // passwordEncoder.matches(request.getPassword(), user.getPassword()));
         // Return token and user info in response
         return LoginResponse.builder()
                 .accessToken(token)
