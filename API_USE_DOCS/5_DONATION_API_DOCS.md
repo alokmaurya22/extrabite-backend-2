@@ -24,19 +24,20 @@ This endpoint allows a logged-in user to create a new donation.
 
 #### Request Body
 
-| Field                    | Type      | Description                                                     | Required |
-| ------------------------ | --------- | --------------------------------------------------------------- | -------- |
-| `foodName`               | `String`  | Name of the food item.                                          | Yes      |
-| `description`            | `String`  | A brief description of the food.                                | Yes      |
-| `quantity`               | `String`  | The quantity of the food (e.g., "2 plates").                    | Yes      |
-| `expiryDateTime`         | `String`  | Expiry date & time in ISO format (`YYYY-MM-DDTHH:mm:ss`)        | Yes      |
-| `isFree`                 | `boolean` | Set to `true` if the donation is free.                          | Yes      |
-| `price`                  | `Double`  | The price of the food if it's not free.                         | No       |
-| `location`               | `String`  | The pickup location address.                                    | Yes      |
-| `geolocation`            | `String`  | GPS coordinates (e.g., "12.9716,77.5946").                      | No       |
-| `deliveryType`           | `String`  | Delivery method: `SELF_PICKUP`, `DELIVERY_PARTNER`, `ANY`.      | No       |
-| `foodType`               | `String`  | Type of food: `PRECOOKED` or `RAW`.                             | Yes      |
-| `refrigerationAvailable` | `boolean` | Only for `PRECOOKED` food. Is refrigeration facility available? | No       |
+| Field                    | Type      | Description                                                          | Required |
+| ------------------------ | --------- | -------------------------------------------------------------------- | -------- |
+| `foodName`               | `String`  | Name of the food item.                                               | Yes      |
+| `description`            | `String`  | A brief description of the food.                                     | Yes      |
+| `quantity`               | `String`  | The quantity of the food (e.g., "2 plates").                         | Yes      |
+| `expiryDateTime`         | `String`  | Expiry date & time in ISO format (`YYYY-MM-DDTHH:mm:ss`)             | Yes      |
+| `isFree`                 | `boolean` | Set to `true` if the donation is free.                               | Yes      |
+| `price`                  | `Double`  | The price of the food if it's not free.                              | No       |
+| `location`               | `String`  | The pickup location address.                                         | Yes      |
+| `geolocation`            | `String`  | GPS coordinates (e.g., "12.9716,77.5946").                           | No       |
+| `deliveryType`           | `String`  | Delivery method: `SELF_PICKUP`, `DELIVERY_PARTNER`, `ANY`.           | No       |
+| `foodType`               | `String`  | Type of food: `PRECOOKED` or `RAW`.                                  | Yes      |
+| `refrigerationAvailable` | `boolean` | Only for `PRECOOKED` food. Is refrigeration facility available?      | No       |
+| `imageUrl`               | `String`  | (Optional) Link to the image of the donation (e.g., Cloudinary URL). | No       |
 
 #### Special Logic for PreCooked/Raw Food
 
@@ -63,7 +64,8 @@ Request:
   "location": "Koramangala, Bangalore",
   "geolocation": "12.9352,77.6245",
   "deliveryType": "SELF_PICKUP",
-  "foodType": "RAW"
+  "foodType": "RAW",
+  "imageUrl": "https://res.cloudinary.com/demo/image/upload/v1234567890/rawrice.jpg"
 }
 ```
 
@@ -88,7 +90,8 @@ Response:
   "foodType": "RAW",
   "refrigerationAvailable": null,
   "timer": false,
-  "countdownTime": 0
+  "countdownTime": 0,
+  "imageUrl": "https://res.cloudinary.com/demo/image/upload/v1234567890/rawrice.jpg"
 }
 ```
 
@@ -108,7 +111,8 @@ Request:
   "geolocation": "12.9716,77.6412",
   "deliveryType": "SELF_PICKUP",
   "foodType": "PRECOOKED",
-  "refrigerationAvailable": true
+  "refrigerationAvailable": true,
+  "imageUrl": "https://res.cloudinary.com/demo/image/upload/v1234567890/paneercurry.jpg"
 }
 ```
 
@@ -133,7 +137,8 @@ Response:
   "foodType": "PRECOOKED",
   "refrigerationAvailable": true,
   "timer": true,
-  "countdownTime": 14400
+  "countdownTime": 14400,
+  "imageUrl": "https://res.cloudinary.com/demo/image/upload/v1234567890/paneercurry.jpg"
 }
 ```
 
@@ -153,7 +158,8 @@ Request:
   "geolocation": "12.9293,77.5825",
   "deliveryType": "SELF_PICKUP",
   "foodType": "PRECOOKED",
-  "refrigerationAvailable": false
+  "refrigerationAvailable": false,
+  "imageUrl": "https://res.cloudinary.com/demo/image/upload/v1234567890/pulao.jpg"
 }
 ```
 
@@ -178,7 +184,8 @@ Response:
   "foodType": "PRECOOKED",
   "refrigerationAvailable": false,
   "timer": true,
-  "countdownTime": 7200
+  "countdownTime": 7200,
+  "imageUrl": "https://res.cloudinary.com/demo/image/upload/v1234567890/pulao.jpg"
 }
 ```
 

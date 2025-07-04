@@ -64,4 +64,7 @@ public class Donation {
     private Boolean timer;
 
     private Long countdownTime;
+
+    @Column(name = "image_url", nullable = true)
+    private String imageUrl;
 }

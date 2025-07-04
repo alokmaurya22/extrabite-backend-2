@@ -23,4 +23,5 @@ public class DonationRequest {
     private Boolean refrigerationAvailable;
     private Boolean timer;
     private Long countdownTime;
+    private String imageUrl; // Optional image URL for the donation
 }

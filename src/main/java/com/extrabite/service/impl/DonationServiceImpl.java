@@ -69,6 +69,8 @@ public class DonationServiceImpl implements DonationService {
             donation.setTimer(false);
             donation.setCountdownTime(0L);
         }
+        // Set imageUrl if provided
+        donation.setImageUrl(donationRequest.getImageUrl());
         // Donation count badha rahe hain
         UserData donorData = donor.getUserData();
         donorData.setDonationCount(donorData.getDonationCount() + 1);
@@ -129,6 +131,7 @@ public class DonationServiceImpl implements DonationService {
         donation.setDeliveryType(donationRequest.getDeliveryType());
         donation.setFoodType(donationRequest.getFoodType());
         donation.setRefrigerationAvailable(donationRequest.getRefrigerationAvailable());
+        // Food type ke hisaab se timer set kar rahe hain
         if (donationRequest.getFoodType() != null && donationRequest.getFoodType().name().equals("PRECOOKED")) {
             donation.setTimer(true);
             if (Boolean.TRUE.equals(donationRequest.getRefrigerationAvailable())) {
@@ -140,6 +143,8 @@ public class DonationServiceImpl implements DonationService {
             donation.setTimer(false);
             donation.setCountdownTime(0L);
         }
+        // Set imageUrl if provided
+        donation.setImageUrl(donationRequest.getImageUrl());
         Donation updatedDonation = donationRepository.save(donation);
         return convertToResponse(updatedDonation);
     }
@@ -188,6 +193,7 @@ public class DonationServiceImpl implements DonationService {
         response.setRefrigerationAvailable(donation.getRefrigerationAvailable());
         response.setTimer(donation.getTimer());
         response.setCountdownTime(donation.getCountdownTime());
+        response.setImageUrl(donation.getImageUrl());
         return response;
     }
 }
