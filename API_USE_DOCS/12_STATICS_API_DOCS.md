@@ -47,26 +47,24 @@ These APIs provide statistics on global and Indian hunger and food wastage data 
 
 ---
 
-## 1. Get Yearly Data
+# Statics API Query Parameter Examples
 
-**Endpoint:**
+## 1. Yearly Data
 
-```
-GET /api/analytics/statistics/yearly
-```
+**Endpoint:** `/api/analytics/statistics/yearly`
 
-**Query Parameters:**
+**Parameters:**
 
-- `dataType` (string): `hunger`, `foodWaste`, or `both`
-- `region` (string): `India` or `Global`
-- `startYear` (int): e.g. 2015
-- `endYear` (int): e.g. 2025
+- `dataType`: `hunger`, `foodWaste`, `both`
+- `region`: `India`, `Global`
+- `startYear`: 2015-2025
+- `endYear`: 2015-2025
 
-**Sample Request:**
+**Example Requests:**
 
-```
-GET /api/analytics/statistics/yearly?dataType=both&region=India&startYear=2020&endYear=2025
-```
+- `/api/analytics/statistics/yearly?dataType=hunger&region=India&startYear=2020&endYear=2025`
+- `/api/analytics/statistics/yearly?dataType=foodWaste&region=Global&startYear=2015&endYear=2023`
+- `/api/analytics/statistics/yearly?dataType=both&region=India&startYear=2018&endYear=2022`
 
 **Sample Response:**
 
@@ -90,24 +88,19 @@ GET /api/analytics/statistics/yearly?dataType=both&region=India&startYear=2020&e
 
 ---
 
-## 2. Get Growth Rate (CAGR)
+## 2. Growth Rate (CAGR)
 
-**Endpoint:**
+**Endpoint:** `/api/analytics/statistics/growth-rate`
 
-```
-GET /api/analytics/statistics/growth-rate
-```
+**Parameters:**
 
-**Query Parameters:**
+- `type`: `hunger`, `foodWaste`
+- `region`: `India`, `Global`
 
-- `type` (string): `hunger` or `foodWaste`
-- `region` (string): `India` or `Global`
+**Example Requests:**
 
-**Sample Request:**
-
-```
-GET /api/analytics/statistics/growth-rate?type=hunger&region=India
-```
+- `/api/analytics/statistics/growth-rate?type=hunger&region=India`
+- `/api/analytics/statistics/growth-rate?type=foodWaste&region=Global`
 
 **Sample Response:**
 
@@ -121,24 +114,19 @@ GET /api/analytics/statistics/growth-rate?type=hunger&region=India
 
 ---
 
-## 3. Get Daily Comparison
+## 3. Daily Comparison
 
-**Endpoint:**
+**Endpoint:** `/api/analytics/statistics/daily-comparison`
 
-```
-GET /api/analytics/statistics/daily-comparison
-```
+**Parameters:**
 
-**Query Parameters:**
+- `region`: `India`, `Global`
+- `year`: 2015-2025
 
-- `region` (string): `India` or `Global`
-- `year` (int): e.g. 2024
+**Example Requests:**
 
-**Sample Request:**
-
-```
-GET /api/analytics/statistics/daily-comparison?region=India&year=2024
-```
+- `/api/analytics/statistics/daily-comparison?region=India&year=2024`
+- `/api/analytics/statistics/daily-comparison?region=Global&year=2020`
 
 **Sample Response:**
 
@@ -155,24 +143,19 @@ GET /api/analytics/statistics/daily-comparison?region=India&year=2024
 
 ---
 
-## 4. Get Food Waste Source Breakdown
+## 4. Food Waste Source Breakdown
 
-**Endpoint:**
+**Endpoint:** `/api/analytics/statistics/food-waste-sources`
 
-```
-GET /api/analytics/statistics/food-waste-sources
-```
+**Parameters:**
 
-**Query Parameters:**
+- `region`: `India`, `Global`
+- `year`: 2015-2025
 
-- `region` (string): `India` or `Global`
-- `year` (int): e.g. 2024
+**Example Requests:**
 
-**Sample Request:**
-
-```
-GET /api/analytics/statistics/food-waste-sources?region=India&year=2024
-```
+- `/api/analytics/statistics/food-waste-sources?region=India&year=2024`
+- `/api/analytics/statistics/food-waste-sources?region=Global&year=2021`
 
 **Sample Response:**
 
@@ -193,24 +176,19 @@ GET /api/analytics/statistics/food-waste-sources?region=India&year=2024
 
 ---
 
-## 5. Get Statics Summary (Dashboard)
+## 5. Statics Summary (Dashboard)
 
-**Endpoint:**
+**Endpoint:** `/api/analytics/statistics/summary`
 
-```
-GET /api/analytics/statistics/summary
-```
+**Parameters:**
 
-**Query Parameters:**
+- `region`: `India`, `Global`
+- `year`: 2015-2025
 
-- `region` (string): `India` or `Global`
-- `year` (int): e.g. 2024
+**Example Requests:**
 
-**Sample Request:**
-
-```
-GET /api/analytics/statistics/summary?region=India&year=2024
-```
+- `/api/analytics/statistics/summary?region=India&year=2024`
+- `/api/analytics/statistics/summary?region=Global&year=2020`
 
 **Sample Response:**
 
@@ -238,25 +216,20 @@ GET /api/analytics/statistics/summary?region=India&year=2024
 
 ---
 
-## 6. Get Hunger vs Food Waste Bar Chart Data
+## 6. Hunger vs Food Waste Bar Chart
 
-**Endpoint:**
+**Endpoint:** `/api/analytics/statistics/hunger-vs-foodwaste-bar`
 
-```
-GET /api/analytics/statistics/hunger-vs-foodwaste-bar
-```
+**Parameters:**
 
-**Query Parameters:**
+- `region`: `India`, `Global`
+- `startYear`: 2015-2025
+- `endYear`: 2015-2025
 
-- `region` (string): `India` or `Global`
-- `startYear` (int): e.g. 2015
-- `endYear` (int): e.g. 2025
+**Example Requests:**
 
-**Sample Request:**
-
-```
-GET /api/analytics/statistics/hunger-vs-foodwaste-bar?region=India&startYear=2015&endYear=2025
-```
+- `/api/analytics/statistics/hunger-vs-foodwaste-bar?region=India&startYear=2015&endYear=2025`
+- `/api/analytics/statistics/hunger-vs-foodwaste-bar?region=Global&startYear=2018&endYear=2022`
 
 **Sample Response:**
 
