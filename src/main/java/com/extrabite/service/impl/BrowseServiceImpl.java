@@ -87,6 +87,7 @@ public class BrowseServiceImpl implements BrowseService {
         response.setRefrigerationAvailable(donation.getRefrigerationAvailable());
         response.setTimer(donation.getTimer());
         response.setCountdownTime(donation.getCountdownTime());
+        response.setImageUrl(donation.getImageUrl());
         return response;
     }
 }

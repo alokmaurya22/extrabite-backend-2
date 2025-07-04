@@ -43,6 +43,7 @@ The response includes all relevant request fields, as well as the associated don
 - `countdownTime`: number (seconds)
 - `free`: boolean (whether the donation is free)
 - `price`: number (price of the donation, if not free)
+- `imageUrl`: string (optional Cloudinary link)
 
 ```json
 {
@@ -63,7 +64,8 @@ The response includes all relevant request fields, as well as the associated don
   "timer": true,
   "countdownTime": 7200,
   "free": false,
-  "price": 100.0
+  "price": 100.0,
+  "imageUrl": "https://res.cloudinary.com/demo/image/upload/v1234567890/rice.jpg"
 }
 ```
 

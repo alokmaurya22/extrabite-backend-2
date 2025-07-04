@@ -33,4 +33,5 @@ public class RequestResponseDto {
     private Long countdownTime;
     private Boolean free;
     private Double price;
+    private String imageUrl;
 }

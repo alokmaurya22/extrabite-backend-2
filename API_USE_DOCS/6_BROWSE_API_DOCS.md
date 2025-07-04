@@ -20,6 +20,7 @@ The response will be an array of donation objects. The format is identical to th
 - `refrigerationAvailable`: boolean (only for PRECOOKED)
 - `timer`: boolean
 - `countdownTime`: number (seconds)
+- `imageUrl`: string (optional)
 
 ```json
 [
@@ -41,7 +42,8 @@ The response will be an array of donation objects. The format is identical to th
     "foodType": "PRECOOKED",
     "refrigerationAvailable": false,
     "timer": true,
-    "countdownTime": 7200
+    "countdownTime": 7200,
+    "imageUrl": "https://res.cloudinary.com/demo/image/upload/v1234567890/pulao.jpg"
   }
 ]
 ```
@@ -102,7 +104,8 @@ The response will be an array of donation objects that match the filter criteria
     "foodType": "PRECOOKED",
     "refrigerationAvailable": false,
     "timer": true,
-    "countdownTime": 7200
+    "countdownTime": 7200,
+    "imageUrl": "https://res.cloudinary.com/demo/image/upload/v1234567890/pulao.jpg"
   }
 ]
 ```
