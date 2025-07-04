@@ -70,4 +70,50 @@ public class AnalyticsReportController {
             @RequestParam(required = false) Boolean available) {
         return ResponseEntity.ok(analyticsReportService.getTopDonors(location, available));
     }
+
+    // Statics endpoints
+    @GetMapping("/statistics/yearly")
+    public ResponseEntity<List<YearlyDataResponse>> getYearlyData(
+            @RequestParam String dataType,
+            @RequestParam String region,
+            @RequestParam int startYear,
+            @RequestParam int endYear) {
+        return ResponseEntity.ok(analyticsReportService.getYearlyData(dataType, region, startYear, endYear));
+    }
+
+    @GetMapping("/statistics/growth-rate")
+    public ResponseEntity<GrowthRateResponse> getGrowthRate(
+            @RequestParam String type,
+            @RequestParam String region) {
+        return ResponseEntity.ok(analyticsReportService.getGrowthRate(type, region));
+    }
+
+    @GetMapping("/statistics/daily-comparison")
+    public ResponseEntity<DailyComparisonResponse> getDailyComparison(
+            @RequestParam String region,
+            @RequestParam int year) {
+        return ResponseEntity.ok(analyticsReportService.getDailyComparison(region, year));
+    }
+
+    @GetMapping("/statistics/food-waste-sources")
+    public ResponseEntity<FoodWasteSourceBreakdownResponse> getFoodWasteSourceBreakdown(
+            @RequestParam String region,
+            @RequestParam int year) {
+        return ResponseEntity.ok(analyticsReportService.getFoodWasteSourceBreakdown(region, year));
+    }
+
+    @GetMapping("/statistics/summary")
+    public ResponseEntity<StaticsSummaryResponse> getStaticsSummary(
+            @RequestParam String region,
+            @RequestParam int year) {
+        return ResponseEntity.ok(analyticsReportService.getStaticsSummary(region, year));
+    }
+
+    @GetMapping("/statistics/hunger-vs-foodwaste-bar")
+    public ResponseEntity<List<HungerVsFoodWasteBarChartResponse>> getHungerVsFoodWasteBarChart(
+            @RequestParam String region,
+            @RequestParam int startYear,
+            @RequestParam int endYear) {
+        return ResponseEntity.ok(analyticsReportService.getHungerVsFoodWasteBarChart(region, startYear, endYear));
+    }
 }
