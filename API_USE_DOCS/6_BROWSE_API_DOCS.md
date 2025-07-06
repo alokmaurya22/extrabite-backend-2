@@ -8,6 +8,8 @@ This document provides detailed information about the public APIs for browsing a
 
 This endpoint retrieves a list of all donations that are currently available and not expired. This is the primary endpoint for displaying donations to users who are browsing the platform.
 
+> **Note:** Only donations with status `AVAILABLE` are shown in this list.
+
 - **URL:** `/api/browse/donations`
 - **Method:** `GET`
 - **Authentication:** Not Required for login
@@ -68,6 +70,8 @@ You can add any of the following parameters to the URL.
 | `location` | `String`  | Searches for a partial match in the location (case-insensitive).                                  | `.../search?location=kora`  |
 | `isFree`   | `Boolean` | Filters for donations that are either free (`true`) or not (`false`).                             | `.../search?isFree=true`    |
 | `status`   | `String`  | Filters by donation status. Can be `AVAILABLE`, `CLAIMED`, or `EXPIRED`. Defaults to `AVAILABLE`. | `.../search?status=EXPIRED` |
+
+> **Note:** If you do not specify the `status` parameter, only donations with status `AVAILABLE` will be shown by default.
 
 #### Example Usage
 
