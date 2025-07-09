@@ -323,4 +323,33 @@ curl -X POST http://localhost:8080/api/donations/123/expire-by-expiry-time
 
 ---
 
+## Scheduler Control APIs (For Platform Admin/Debug)
+
+These public APIs allow you to enable/disable the automatic schedulers that update donation statuses, and to check their current status.
+
+### Enable/Disable PreCooked Timer Expiry Scheduler
+
+- **POST** `/api/scheduler/timer-expiry/enable`
+- **POST** `/api/scheduler/timer-expiry/disable`
+- **Description:** Enable or disable the scheduler that automatically sets status to `EXPIRED` for PreCooked donations whose timer has expired.
+
+### Enable/Disable Expiry by expiryDateTime Scheduler
+
+- **POST** `/api/scheduler/expiry-date-time/enable`
+- **POST** `/api/scheduler/expiry-date-time/disable`
+- **Description:** Enable or disable the scheduler that automatically sets status to `EXPIRED_BY_EXP_TIME` for donations whose `expiryDateTime` is in the past.
+
+### Get Schedulers Status
+
+- **GET** `/api/scheduler/status`
+- **Description:** Returns the current enabled/disabled status of both schedulers.
+- **Response Example:**
+
+```json
+{
+  "timerExpirySchedulerEnabled": true,
+  "expiryDateTimeSchedulerEnabled": false
+}
+```
+
 For authentication and error handling, refer to the main API usage documentation.

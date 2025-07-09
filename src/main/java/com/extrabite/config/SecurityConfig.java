@@ -75,6 +75,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/donations/*/reject-by-platform").permitAll()
                         // Allow public access to expire-by-expiry-time endpoint
                         .requestMatchers("/api/donations/*/expire-by-expiry-time").permitAll()
+                        // Allow public access to scheduler control endpoints
+                        .requestMatchers("/api/scheduler/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("SUPER_ADMIN")
                         .requestMatchers("/api/user/**").authenticated()
                         .requestMatchers("/api/donations/**").authenticated()

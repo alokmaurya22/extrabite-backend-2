@@ -16,9 +16,25 @@ public class DonationExpiryByDateTimeScheduler {
 
     private final DonationRepository donationRepository;
 
+    private static boolean expiryDateTimeSchedulerEnabled = true;
+
+    public static void enableScheduler() {
+        expiryDateTimeSchedulerEnabled = true;
+    }
+
+    public static void disableScheduler() {
+        expiryDateTimeSchedulerEnabled = false;
+    }
+
+    public static boolean isSchedulerEnabled() {
+        return expiryDateTimeSchedulerEnabled;
+    }
+
     // Run every 10 minutes
     @Scheduled(cron = "0 */10 * * * ?")
     public void expireDonationsByExpiryDateTime() {
+        if (!expiryDateTimeSchedulerEnabled)
+            return;
         List<Donation> donations = donationRepository.findAll();
         LocalDateTime now = LocalDateTime.now();
         for (Donation donation : donations) {
