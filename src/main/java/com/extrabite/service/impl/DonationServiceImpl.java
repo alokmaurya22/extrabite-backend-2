@@ -196,4 +196,31 @@ public class DonationServiceImpl implements DonationService {
         response.setImageUrl(donation.getImageUrl());
         return response;
     }
+
+    // Platform can reject a donation if timer expired
+    @Override
+    public DonationResponse rejectByPlatform(Long id) {
+        Donation donation = donationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Donation not found with id: " + id));
+        if (donation.getStatus() == DonationStatus.AVAILABLE
+                && Boolean.TRUE.equals(donation.getTimer())
+                && donation.getCreatedDateTime().plusSeconds(donation.getCountdownTime())
+                        .isBefore(java.time.LocalDateTime.now())) {
+            donation.setStatus(DonationStatus.EXPIRED);
+            donationRepository.save(donation);
+        }
+        return convertToResponse(donation);
+    }
+
+    @Override
+    public DonationResponse expireByExpiryTime(Long id) {
+        Donation donation = donationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Donation not found with id: " + id));
+        if (donation.getExpiryDateTime() != null
+                && donation.getExpiryDateTime().isBefore(java.time.LocalDateTime.now())) {
+            donation.setStatus(DonationStatus.EXPIRED_BY_EXP_TIME);
+            donationRepository.save(donation);
+        }
+        return convertToResponse(donation);
+    }
 }

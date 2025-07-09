@@ -17,4 +17,8 @@ public interface DonationService {
     DonationResponse updateDonation(Long id, DonationRequest donationRequest, String currentUserEmail);
 
     void deleteDonation(Long id, String currentUserEmail);
+
+    DonationResponse rejectByPlatform(Long id);
+
+    DonationResponse expireByExpiryTime(Long id);
 }

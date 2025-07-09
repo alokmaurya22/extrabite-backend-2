@@ -73,4 +73,18 @@ public class DonationController {
         donationService.deleteDonation(id, userDetails.getUsername());
         return ResponseEntity.noContent().build();
     }
+
+    // Platform API to reject a donation by ID if timer expired
+    @PostMapping("/{id}/reject-by-platform")
+    public ResponseEntity<DonationResponse> rejectByPlatform(@PathVariable Long id) {
+        DonationResponse response = donationService.rejectByPlatform(id);
+        return ResponseEntity.ok(response);
+    }
+
+    // Platform API to expire a donation by expiryDateTime
+    @PostMapping("/{id}/expire-by-expiry-time")
+    public ResponseEntity<DonationResponse> expireByExpiryTime(@PathVariable Long id) {
+        DonationResponse response = donationService.expireByExpiryTime(id);
+        return ResponseEntity.ok(response);
+    }
 }

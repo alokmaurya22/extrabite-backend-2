@@ -4,5 +4,7 @@ package com.extrabite.entity;
 public enum DonationStatus {
     AVAILABLE,
     CLAIMED,
-    EXPIRED
+    EXPIRED,
+    EXPIRED_BY_EXP_TIME,
+    REJECTED
 }

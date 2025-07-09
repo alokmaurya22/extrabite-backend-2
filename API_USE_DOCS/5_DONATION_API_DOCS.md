@@ -236,7 +236,7 @@ A successful deletion will return an empty response with a `204 No Content` stat
 
 ---
 
-## Automatic Rejection of PreCooked Donations
+## PreCooked Donations Expiry by Timer (Automatic & Manual)
 
 If a donation is of type `PRECOOKED`, the platform will automatically reject the donation (set status to `REJECTED`) if it is not claimed within the timer period (2 or 4 hours, depending on refrigeration). This is handled by the backend and does not require user action.
 
@@ -244,7 +244,82 @@ A public API is available for the platform to reject a donation by ID (no authen
 
 - **POST** `/api/donations/{id}/reject-by-platform`
 - **Auth:** Not required
-- **Description:** Rejects the donation if it is still available and the timer has expired.
+- **Description:** Rejects the donation if it is still available, has a timer, and the timer has expired. The donation status will be set to `EXPIRED`.
+
+#### Manual API Usage
+
+**Request:**
+
+```
+POST /api/donations/{id}/reject-by-platform
+Content-Type: application/json
+```
+
+No request body is required.
+
+**Response (Success):**
+
+```
+{
+  "id": 123,
+  "foodName": "Paneer Curry",
+  "status": "EXPIRED",
+  "timer": true,
+  "countdownTime": 14400,
+  // ...other donation fields...
+}
+```
+
+If the donation is not eligible for rejection (e.g., timer not expired, already claimed, etc.), the response will return the current state of the donation (status will not change).
+
+**Example curl command:**
+
+```
+curl -X POST http://localhost:8080/api/donations/123/reject-by-platform
+```
+
+---
+
+### Expiry by expiryDateTime (Automatic & Manual)
+
+If a donation's `expiryDateTime` is in the past, the platform will automatically set its status to `EXPIRED_BY_EXP_TIME` (regardless of its previous status). This is handled by the backend scheduler and can also be triggered manually via API.
+
+A public API is available for the platform to expire a donation by ID (no authentication required):
+
+- **POST** `/api/donations/{id}/expire-by-expiry-time`
+- **Auth:** Not required
+- **Description:** Sets the donation status to `EXPIRED_BY_EXP_TIME` if its `expiryDateTime` is in the past (regardless of current status).
+
+#### Manual API Usage
+
+**Request:**
+
+```
+POST /api/donations/{id}/expire-by-expiry-time
+Content-Type: application/json
+```
+
+No request body is required.
+
+**Response (Success):**
+
+```
+{
+  "id": 123,
+  "foodName": "Paneer Curry",
+  "status": "EXPIRED_BY_EXP_TIME",
+  "expiryDateTime": "2024-06-10T12:00:00",
+  // ...other donation fields...
+}
+```
+
+If the donation's expiryDateTime is not in the past, the response will return the current state of the donation (status will not change).
+
+**Example curl command:**
+
+```
+curl -X POST http://localhost:8080/api/donations/123/expire-by-expiry-time
+```
 
 ---
 
