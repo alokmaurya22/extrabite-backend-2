@@ -223,4 +223,22 @@ public class DonationServiceImpl implements DonationService {
         }
         return convertToResponse(donation);
     }
+
+    @Override
+    public List<DonationResponse> changeTargetedDonationStatus(String targetedStatus, String requiredStatus) {
+        List<Donation> donations = donationRepository.findAll();
+        List<DonationResponse> changed = new java.util.ArrayList<>();
+        for (Donation donation : donations) {
+            if (donation.getStatus().name().equalsIgnoreCase(targetedStatus)) {
+                try {
+                    donation.setStatus(DonationStatus.valueOf(requiredStatus));
+                    donationRepository.save(donation);
+                    changed.add(convertToResponse(donation));
+                } catch (IllegalArgumentException e) {
+                    // Invalid status provided, skip
+                }
+            }
+        }
+        return changed;
+    }
 }

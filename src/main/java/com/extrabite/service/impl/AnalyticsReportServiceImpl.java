@@ -169,18 +169,38 @@ public class AnalyticsReportServiceImpl implements AnalyticsReportService {
             Integer foodWaste = ExtrabiteDataEngine.getIndiaFoodWasteTonnes().get(year);
             if (hunger != null && foodWaste != null) {
                 dailyHungry = (int) Math.round(hunger * 1_000_000.0 / 365.0);
-                peopleFed = foodWaste * 2000;
-                enoughFood = peopleFed >= dailyHungry;
-                shortBy = enoughFood ? 0 : (dailyHungry - peopleFed);
+                // New calculation based on 1.5 kg per person
+                long totalFoodKg = (long) foodWaste * 1_000_000L * 1000L;
+                long requiredFoodKg = (long) hunger * 1_000_000L * 15 / 10; // 1.5 kg per person
+                long foodRemainingKg = totalFoodKg - requiredFoodKg;
+                if (foodRemainingKg >= 0) {
+                    peopleFed = (int) (foodRemainingKg / 15 * 10); // (foodRemainingKg / 1.5)
+                    enoughFood = true;
+                    shortBy = 0;
+                } else {
+                    peopleFed = 0;
+                    enoughFood = false;
+                    shortBy = (int) (Math.abs(foodRemainingKg) / 15 * 10); // (abs(foodRemainingKg) / 1.5)
+                }
             }
         } else if (region.equalsIgnoreCase("Global")) {
             Integer hunger = ExtrabiteDataEngine.getGlobalHunger().get(year);
             Double foodWaste = ExtrabiteDataEngine.getGlobalFoodWasteTonnes().get(year);
             if (hunger != null && foodWaste != null) {
                 dailyHungry = (int) Math.round(hunger * 1_000_000.0 / 365.0);
-                peopleFed = (int) Math.round(foodWaste * 1_000_000_000 / 1000 * 2000); // billion tonnes
-                enoughFood = peopleFed >= dailyHungry;
-                shortBy = enoughFood ? 0 : (dailyHungry - peopleFed);
+                // New calculation based on 1.5 kg per person
+                long totalFoodKg = (long) (foodWaste * 1_000_000_000L * 1000L);
+                long requiredFoodKg = (long) hunger * 1_000_000L * 15 / 10; // 1.5 kg per person
+                long foodRemainingKg = totalFoodKg - requiredFoodKg;
+                if (foodRemainingKg >= 0) {
+                    peopleFed = (int) (foodRemainingKg / 15 * 10); // (foodRemainingKg / 1.5)
+                    enoughFood = true;
+                    shortBy = 0;
+                } else {
+                    peopleFed = 0;
+                    enoughFood = false;
+                    shortBy = (int) (Math.abs(foodRemainingKg) / 15 * 10); // (abs(foodRemainingKg) / 1.5)
+                }
             }
         }
         return new DailyComparisonResponse(region, year, dailyHungry, peopleFed, enoughFood, shortBy);

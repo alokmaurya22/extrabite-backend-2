@@ -21,4 +21,6 @@ public interface DonationService {
     DonationResponse rejectByPlatform(Long id);
 
     DonationResponse expireByExpiryTime(Long id);
+
+    List<DonationResponse> changeTargetedDonationStatus(String targetedStatus, String requiredStatus);
 }

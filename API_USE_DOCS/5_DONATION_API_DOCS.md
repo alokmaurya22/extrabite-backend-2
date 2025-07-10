@@ -323,6 +323,44 @@ curl -X POST http://localhost:8080/api/donations/123/expire-by-expiry-time
 
 ---
 
+## Bulk Donation Status Change API
+
+This public API allows you to change the status of all donations with a specific status to another status in one call.
+
+### Change Status of All Donations with a Targeted Status
+
+- **POST** `/api/donations/changeTargetedDonationStatus/{TargetedStatus}/{RequiredStatus}`
+- **Auth:** Not required
+- **Description:** Changes the status of all donations with status `{TargetedStatus}` to `{RequiredStatus}`. Returns all donations whose status was changed.
+
+#### Example Request
+
+```
+POST /api/donations/changeTargetedDonationStatus/AVAILABLE/EXPIRED
+Content-Type: application/json
+```
+
+#### Example Response
+
+```
+[
+  {
+    "id": 1,
+    "foodName": "Rice",
+    "status": "EXPIRED",
+    // ...other donation fields...
+  },
+  {
+    "id": 2,
+    "foodName": "Paneer Curry",
+    "status": "EXPIRED",
+    // ...other donation fields...
+  }
+]
+```
+
+---
+
 ## Scheduler Control APIs (For Platform Admin/Debug)
 
 These public APIs allow you to enable/disable the automatic schedulers that update donation statuses, and to check their current status.

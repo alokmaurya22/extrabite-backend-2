@@ -87,4 +87,14 @@ public class DonationController {
         DonationResponse response = donationService.expireByExpiryTime(id);
         return ResponseEntity.ok(response);
     }
+
+    // API to change status of all donations with a specific status to a new status
+    @PostMapping("/changeTargetedDonationStatus/{targetedStatus}/{requiredStatus}")
+    public ResponseEntity<List<DonationResponse>> changeTargetedDonationStatus(
+            @PathVariable String targetedStatus,
+            @PathVariable String requiredStatus) {
+        List<DonationResponse> changedDonations = donationService.changeTargetedDonationStatus(targetedStatus,
+                requiredStatus);
+        return ResponseEntity.ok(changedDonations);
+    }
 }

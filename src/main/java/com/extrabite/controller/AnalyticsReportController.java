@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 // Analytics report ke liye controller hai
 @RestController
@@ -19,21 +20,25 @@ public class AnalyticsReportController {
 
     // Admin endpoints
     @GetMapping("/admin/summary")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<Map<String, Object>> getAdminSummary() {
         return ResponseEntity.ok(analyticsReportService.getAdminSummary());
     }
 
     @GetMapping("/admin/donations")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<List<Map<String, Object>>> getAdminDonationsReport() {
         return ResponseEntity.ok(analyticsReportService.getAdminDonationsReport());
     }
 
     @GetMapping("/admin/users")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<List<Map<String, Object>>> getAdminUsersReport() {
         return ResponseEntity.ok(analyticsReportService.getAdminUsersReport());
     }
 
     @GetMapping("/admin/requested-donations")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
     public ResponseEntity<List<Map<String, Object>>> getAdminRequestedDonationsReport() {
         return ResponseEntity.ok(analyticsReportService.getAdminRequestedDonationsReport());
     }
