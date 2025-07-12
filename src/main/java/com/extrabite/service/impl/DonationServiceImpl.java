@@ -53,7 +53,11 @@ public class DonationServiceImpl implements DonationService {
         donation.setGeolocation(donationRequest.getGeolocation());
         donation.setDeliveryType(donationRequest.getDeliveryType());
         donation.setStatus(DonationStatus.AVAILABLE);
-        donation.setCreatedDateTime(LocalDateTime.now());
+        if (donationRequest.getCreatedDateTime() != null) {
+            donation.setCreatedDateTime(donationRequest.getCreatedDateTime());
+        } else {
+            donation.setCreatedDateTime(LocalDateTime.now());
+        }
         donation.setDonor(donor);
         donation.setFoodType(donationRequest.getFoodType());
         donation.setRefrigerationAvailable(donationRequest.getRefrigerationAvailable());

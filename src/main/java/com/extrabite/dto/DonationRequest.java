@@ -24,4 +24,5 @@ public class DonationRequest {
     private Boolean timer;
     private Long countdownTime;
     private String imageUrl; // Optional image URL for the donation
+    private LocalDateTime createdDateTime; // Optional createdDateTime for custom creation time
 }
