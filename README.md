@@ -189,47 +189,46 @@ docker run -d -p 8080:8080 --env-file .env extrabite-backend
 5. Ensure all tests pass
 6. Submit a pull request
 
-## 📄 License
-
-This project is licensed under the terms specified in the project's license file.
-
-- Configure production database  
-- Set up proper SSL/TLS certificates  
-- Configure logging and monitoring  
-- Set up backup strategies  
-- Use environment-specific configurations  
-
-## 🤝 Contributing
-
-1. Fork the repository  
-2. Create a feature branch  
-3. Make your changes  
-4. Add tests for new functionality  
-5. Ensure all tests pass  
-6. Submit a pull request  
-
-## 📄 License
-
-This project is licensed under the terms specified in the project’s license file.
-
-## 🆘 Support
-
-For technical support or questions about the API:
-- Check the [API Documentation](API_USE_DOCS/) for detailed endpoint information
-- Review the [Environment Setup Guide](ENV_SETUP.md) for configuration help
-- Open an issue in the project repository
-
----
 
 **Note**: This README provides an overview of the Extrabite Backend project. For detailed API usage, authentication, and endpoint documentation, please refer to the comprehensive documentation in the [API_USE_DOCS/](API_USE_DOCS/) directory.
 
 - Check the [API Documentation](API_USE_DOCS/) for detailed endpoint information  
 - Review the [Environment Setup Guide](ENV_SETUP.md) for configuration help  
 - Open an issue in the project repository  
-## 💬 Suggestion and Query
 
-For any suggestion and query, please contact the developer at **er.alokmaurya22@gmail.com**.
+## 💬 Contribution
+
+🎯 Open to PRs!  
+Got suggestions or feature ideas? Raise an issue or contribute a fix.
 
 ---
 
-Let me know if you'd like to convert this into a styled GitHub README.md file or want a version with badges and indicators for build/test status, license, etc. 
+## 📜 License
+
+This project is open for **educational and humanitarian purposes**.  
+For licensing or partnership, reach out below.
+
+---
+
+## 👨‍💻 Developer Info
+
+- 📧 Email: [er.alokmaurya22@gmail.com](mailto:er.alokmaurya22@gmail.com)
+- 🌐 Website: [https://alokdata.netlify.app](https://alokdata.netlify.app)
+- 💼 LinkedIn: [https://linkedin.com/in/alok22](https://linkedin.com/in/alok22)
+- 💻 GitHub: [https://github.com/alokmaurya22](https://github.com/alokmaurya22)
+
+---
+
+## 💚 Join ExtraBite — Empower Change, Transform Lives!
+
+Helping one person is enough to make it meaningful.
+
+```
+
+---
+
+### ✅ How to use:
+1. Create a file called `README.md` in the root of your GitHub repo.
+2. Paste the above content into it.
+3. Commit and push — that’s it!
+```
