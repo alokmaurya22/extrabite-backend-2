@@ -180,16 +180,7 @@ docker run -d -p 8080:8080 --env-file .env extrabite-backend
 - Set up backup strategies
 - Use environment-specific configurations
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass
-6. Submit a pull request
-
-
+## 🤝 Note
 **Note**: This README provides an overview of the Extrabite Backend project. For detailed API usage, authentication, and endpoint documentation, please refer to the comprehensive documentation in the [API_USE_DOCS/](API_USE_DOCS/) directory.
 
 - Check the [API Documentation](API_USE_DOCS/) for detailed endpoint information  
@@ -200,6 +191,13 @@ docker run -d -p 8080:8080 --env-file .env extrabite-backend
 
 🎯 Open to PRs!  
 Got suggestions or feature ideas? Raise an issue or contribute a fix.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Ensure all tests pass
+6. Submit a pull request
+
 
 ---
 
