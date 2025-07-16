@@ -213,7 +213,8 @@ For licensing or partnership, reach out below.
 - 📧 Email: [er.alokmaurya22@gmail.com](mailto:er.alokmaurya22@gmail.com)
 - 🌐 Website: [https://alokdata.netlify.app](https://alokdata.netlify.app)
 - 💼 LinkedIn: [https://linkedin.com/in/alok22](https://linkedin.com/in/alok22)
-- 💻 GitHub: [https://github.com/alokmaurya22](https://github.com/alokmaurya22)
+- 💻 GitHub Frontend: [https://github.com/alokmaurya22](https://github.com/alokmaurya22/extrabite-frontend)
+- 💻 GitHub Backend: [https://github.com/alokmaurya22](https://github.com/alokmaurya22/extrabite-backend-2)
 
 ---
 
