@@ -34,4 +34,6 @@ public class RequestResponseDto {
     private Boolean free;
     private Double price;
     private String imageUrl;
+    private String location; // Added for donation location
+    private String geolocation; // Added for donation geolocation
 }

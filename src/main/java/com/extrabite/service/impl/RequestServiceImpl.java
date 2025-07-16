@@ -187,6 +187,8 @@ public class RequestServiceImpl implements RequestService {
         response.setFree(request.getDonation().isFree());
         response.setPrice(request.getDonation().getPrice());
         response.setImageUrl(request.getDonation().getImageUrl());
+        response.setLocation(request.getDonation().getLocation()); // Set donation location
+        response.setGeolocation(request.getDonation().getGeolocation()); // Set donation geolocation
 
         // Security check: Only include OTP for the receiver of this request
         if (currentUser != null && currentUser.equals(request.getReceiver())) {
